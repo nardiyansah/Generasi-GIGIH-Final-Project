@@ -33,6 +33,15 @@ RSpec.describe User do
         it 'id can be nil' do
             expect(@user.id).to be(nil)
         end
+
+        it 'can contain id' do
+            bio = 'onegaishimasu'
+            id = 1
+
+            user = User.new(@username, @email, bio, id)
+
+            expect(user.id).to eq(id)
+        end
     end
 
 end
