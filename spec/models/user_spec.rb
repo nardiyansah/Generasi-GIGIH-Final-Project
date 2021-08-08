@@ -20,6 +20,15 @@ RSpec.describe User do
 
             expect(user.email).to eq(email)
         end
+
+        it 'bio can be nil' do
+            username = 'foo'
+            email = 'foo@mail.com'
+
+            user = User.new(username, email)
+
+            expect(user.bio).to be(nil)
+        end
     end
 
 end
