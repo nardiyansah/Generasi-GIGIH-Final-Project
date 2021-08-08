@@ -29,6 +29,16 @@ RSpec.describe User do
 
             expect(user.bio).to be(nil)
         end
+
+        it 'can contain bio' do
+            username = 'foo'
+            email = 'foo@mail.com'
+            bio = 'onegaishimasu'
+
+            user = User.new(username, email, bio)
+
+            expect(user.bio).to eq(bio)
+        end
     end
 
 end
