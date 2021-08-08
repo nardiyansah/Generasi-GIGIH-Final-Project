@@ -5,9 +5,20 @@ RSpec.describe User do
     describe "initialize object class" do
         it 'should has username' do
             username = 'foo'
-            user = User.new(username)
+            email = 'foo@mail.com'
+
+            user = User.new(username, email)
 
             expect(user.username).to eq(username)
+        end
+
+        it 'should has email' do
+            username = 'foo'
+            email = 'foo@mail.com'
+
+            user = User.new(username, email)
+
+            expect(user.email).to eq(email)
         end
     end
 
