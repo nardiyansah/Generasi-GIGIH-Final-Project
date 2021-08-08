@@ -29,6 +29,10 @@ RSpec.describe User do
 
             expect(user.bio).to eq(bio)
         end
+
+        it 'id can be nil' do
+            expect(@user.id).to be(nil)
+        end
     end
 
 end
