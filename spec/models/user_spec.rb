@@ -63,6 +63,20 @@ RSpec.describe User do
 
             expect(user_id).to eq(1)
         end
+
+        it 'should store bio if registered with bio' do
+            username = 'foo'
+            email = 'foo@mail.com'
+            bio = 'I am foo'
+            db_client = create_db_client
+
+            user = User.new(username, email, bio, nil, db_client)
+            user_id = user.save
+
+            stored_bio = db_client.query("SELECT bio FROM users WHERE id = #{user_id}").each[0]['bio']
+
+            expect(stored_bio).to eq(bio)
+        end
     end
 
 end
