@@ -9,7 +9,7 @@ class UserController
 
     def create(data)
         if data['username'].nil? or data['username'].empty? or data['email'].nil? or data['email'].empty?
-            return "username or email not correct"
+            return 400
         end
 
         username = data['username']
@@ -17,6 +17,11 @@ class UserController
         bio = data['bio']
         
         model = User.new(username, email, bio, nil, @db_client)
-        model.save
+        code = model.save
+
+        if code == 0
+            return 406
+        end
+        201
     end
 end

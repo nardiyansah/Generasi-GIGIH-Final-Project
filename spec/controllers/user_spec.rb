@@ -33,5 +33,17 @@ RSpec.describe 'user controller' do
             expect(stored_data['username']).to eq(data['username'])
             expect(stored_data['email']).to eq(data['email'])
         end
+
+        it 'should cannot create acount with same email' do
+            data = {"username" => "foo", "email" => "foo@mail.com"}
+            controller = UserController.new(db_client)
+
+            controller.create(data)
+            status = controller.create(data)
+
+            expect(status).to eq(406)
+        end
     end
+
+
 end
