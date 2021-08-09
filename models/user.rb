@@ -1,5 +1,6 @@
 class User
-    attr_reader :username, :email, :bio, :id
+    attr_accessor :username, :email, :bio
+    attr_reader :id
 
     def initialize(username, email, bio=nil, id=nil, db_client=nil)
         @username = username
@@ -17,6 +18,10 @@ class User
             @id = 0
         end
         @id
+    end
+
+    def update
+        @db_client.query("UPDATE users SET username = '#{username}', email = '#{email}', bio = '#{bio}'")
     end
 
 end
