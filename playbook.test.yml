@@ -1,0 +1,20 @@
+- name: run in local
+  hosts: localhost
+  tasks:
+      - name: remove existing app bundle
+        command: rm -rf build.tgz
+      - name: create application bundle
+        command: tar --exclude-from='./.exclude' -zcvf build.tgz .
+
+- name: run in remote server
+  hosts: test_gigih
+  tasks:
+      - name: clear previous app directory
+        ansible.builtin.file:
+            path: "{{ ansible_facts['env']['HOME'] }}/app"
+            state: absent
+      - name: create new app directory
+        ansible.builtin.file:
+            path: "{{ ansible_facts['env']['HOME'] }}/app"
+            state: directory
+    
