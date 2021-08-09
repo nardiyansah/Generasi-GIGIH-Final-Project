@@ -5,6 +5,7 @@
         command: rm -rf build.tgz
       - name: create application bundle
         command: tar --exclude-from='./.exclude' -zcvf build.tgz .
+      
 
 - name: run in remote server
   hosts: test_gigih
@@ -17,4 +18,8 @@
         ansible.builtin.file:
             path: "{{ ansible_facts['env']['HOME'] }}/app"
             state: directory
+      - name: copy builded project to app directory server
+        ansible.builtin.copy:
+            src: ./build.tgz
+            dest: "{{ ansible_facts['env']['HOME'] }}/app/build.tgz"
     
