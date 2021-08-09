@@ -11,7 +11,7 @@ class UserController
         if data.nil?
             return 400
         end
-        
+
         if data['username'].nil? or data['username'].empty? or data['email'].nil? or data['email'].empty?
             return 400
         end
@@ -27,5 +27,19 @@ class UserController
             return 406
         end
         201
+    end
+
+    def update(id, data)
+        username = data['username']
+        email = data['email']
+        bio = data['bio']
+
+        model = User.new(username, email, bio, id, @db_client)
+        code = model.update
+
+        if code < 1
+            return 404
+        end
+        200
     end
 end
