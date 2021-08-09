@@ -3,6 +3,9 @@ require_relative '../../db_connector'
 
 RSpec.describe User do
     db_client = create_db_client
+    username = 'foo'
+    email = 'foo@mail.com'
+    user = User.new(username, email)
 
     before(:each) do
         db_client.query('SET FOREIGN_KEY_CHECKS = 0')
@@ -11,42 +14,36 @@ RSpec.describe User do
     end
 
     describe "initialize object class" do
-        before(:each) do
-            @username = 'foo'
-            @email = 'foo@mail.com'
-    
-            @user = User.new(@username, @email)
-        end
 
         it 'should has username' do
-            expect(@user.username).to eq(@username)
+            expect(user.username).to eq(username)
         end
 
         it 'should has email' do
-            expect(@user.email).to eq(@email)
+            expect(user.email).to eq(email)
         end
 
         it 'bio can be nil' do
-            expect(@user.bio).to be(nil)
+            expect(user.bio).to be(nil)
         end
 
         it 'can contain bio' do
             bio = 'onegaishimasu'
 
-            user = User.new(@username, @email, bio)
+            user = User.new(username, email, bio)
 
             expect(user.bio).to eq(bio)
         end
 
         it 'id can be nil' do
-            expect(@user.id).to be(nil)
+            expect(user.id).to be(nil)
         end
 
         it 'can contain id' do
             bio = 'onegaishimasu'
             id = 1
 
-            user = User.new(@username, @email, bio, id)
+            user = User.new(username, email, bio, id)
 
             expect(user.id).to eq(id)
         end
@@ -55,8 +52,6 @@ RSpec.describe User do
     describe "create new user" do
         
         it 'should save new user account' do
-            username = 'foo'
-            email = 'foo@mail.com'
 
             user = User.new(username, email, nil, nil, db_client)
             user_id = user.save
@@ -65,8 +60,6 @@ RSpec.describe User do
         end
 
         it 'should store bio if registered with bio' do
-            username = 'foo'
-            email = 'foo@mail.com'
             bio = 'I am foo'
 
             user = User.new(username, email, bio, nil, db_client)
@@ -78,8 +71,6 @@ RSpec.describe User do
         end
 
         it 'should not store data user if already exist in database' do
-            username = 'foo'
-            email = 'foo@mail.com'
 
             user = User.new(username, email, nil, nil, db_client)
             first_insert = user.save
