@@ -1,7 +1,7 @@
 require_relative '../../models/user'
 require_relative '../../db_connector'
 
-RSpec.describe User do
+RSpec.describe 'user model' do
     db_client = create_db_client
     username = 'foo'
     email = 'foo@mail.com'
@@ -29,7 +29,6 @@ RSpec.describe User do
 
         it 'can contain bio' do
             bio = 'onegaishimasu'
-
             user = User.new(username, email, bio)
 
             expect(user.bio).to eq(bio)
@@ -42,7 +41,6 @@ RSpec.describe User do
         it 'can contain id' do
             bio = 'onegaishimasu'
             id = 1
-
             user = User.new(username, email, bio, id)
 
             expect(user.id).to eq(id)
@@ -52,7 +50,6 @@ RSpec.describe User do
     describe "create new user" do
         
         it 'should save new user account' do
-
             user = User.new(username, email, nil, nil, db_client)
             user_id = user.save
 
@@ -71,7 +68,6 @@ RSpec.describe User do
         end
 
         it 'should not store data user if already exist in database' do
-
             user = User.new(username, email, nil, nil, db_client)
             first_insert = user.save
             second_insert = user.save
