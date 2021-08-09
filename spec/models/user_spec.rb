@@ -2,8 +2,9 @@ require_relative '../../models/user'
 require_relative '../../db_connector'
 
 RSpec.describe User do
+    db_client = create_db_client
+
     before(:each) do
-        db_client = create_db_client
         db_client.query('SET FOREIGN_KEY_CHECKS = 0')
         db_client.query('TRUNCATE users')
         db_client.query('SET FOREIGN_KEY_CHECKS = 1')
@@ -56,7 +57,6 @@ RSpec.describe User do
         it 'should save new user account' do
             username = 'foo'
             email = 'foo@mail.com'
-            db_client = create_db_client
 
             user = User.new(username, email, nil, nil, db_client)
             user_id = user.save
@@ -68,7 +68,6 @@ RSpec.describe User do
             username = 'foo'
             email = 'foo@mail.com'
             bio = 'I am foo'
-            db_client = create_db_client
 
             user = User.new(username, email, bio, nil, db_client)
             user_id = user.save
@@ -81,7 +80,6 @@ RSpec.describe User do
         it 'should not store data user if already exist in database' do
             username = 'foo'
             email = 'foo@mail.com'
-            db_client = create_db_client
 
             user = User.new(username, email, nil, nil, db_client)
             first_insert = user.save
