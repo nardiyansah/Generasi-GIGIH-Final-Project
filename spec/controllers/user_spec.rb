@@ -43,6 +43,19 @@ RSpec.describe 'user controller' do
 
             expect(status).to eq(406)
         end
+
+        it 'should not accept request withoud data' do
+            controller = UserController.new(db_client)
+
+            status = controller.create(nil)
+            expect(status).to eq(400)
+
+            status = controller.create({"username" => ""})
+            expect(status).to eq(400)
+
+            status = controller.create({"username" => "", "email" => "foo@mail.com"})
+            expect(status).to eq(400)
+        end
     end
 
 

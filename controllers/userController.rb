@@ -8,6 +8,10 @@ class UserController
     end
 
     def create(data)
+        if data.nil?
+            return 400
+        end
+        
         if data['username'].nil? or data['username'].empty? or data['email'].nil? or data['email'].empty?
             return 400
         end
