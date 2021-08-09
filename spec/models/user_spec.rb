@@ -77,6 +77,19 @@ RSpec.describe User do
 
             expect(stored_bio).to eq(bio)
         end
+
+        it 'should not store data user if already exist in database' do
+            username = 'foo'
+            email = 'foo@mail.com'
+            db_client = create_db_client
+
+            user = User.new(username, email, nil, nil, db_client)
+            first_insert = user.save
+            second_insert = user.save
+
+            # id zero mean  can't insert to database, based on email
+            expect(second_insert).to eq(0)
+        end
     end
 
 end

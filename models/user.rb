@@ -10,8 +10,12 @@ class User
     end
 
     def save
-        @db_client.query("INSERT INTO users (username, email, bio) VALUES ('#{username}', '#{email}', '#{bio}')")
-        @id = @db_client.last_id
+        begin
+            @db_client.query("INSERT INTO users (username, email, bio) VALUES ('#{username}', '#{email}', '#{bio}')")
+            @id = @db_client.last_id
+        rescue => exception
+            @id = 0
+        end
         @id
     end
 
