@@ -1,11 +1,13 @@
 language: python
-
 python:
 - '2.7'
-
+branches:
+  only:
+  - main
 before_install:
+- openssl aes-256-cbc -K $encrypted_8e8be7063581_key -iv $encrypted_8e8be7063581_iv
+  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
 - chmod 400 ~/.ssh/id_rsa
-
 include:
-- stage: deploy-production
+- stage: deploy-staging
   script: ansible-playbook playbook.yml --verbose
