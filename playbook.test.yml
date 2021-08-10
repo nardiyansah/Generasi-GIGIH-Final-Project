@@ -55,3 +55,6 @@
       - name: install mysql-server
         become: yes
         apt: name=mysql-server
+      - name: install libmysqlclient-dev
+        become: yes
+        apt: name=libmysqlclient-dev
