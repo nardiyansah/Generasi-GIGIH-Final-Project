@@ -9,24 +9,24 @@ class UserController
 
     def create(data)
         if data.nil?
-            return 400
+            return [ 400, 'missing data' ]
         end
 
         if data['username'].nil? or data['username'].empty? or data['email'].nil? or data['email'].empty?
-            return 400
+            return [ 400, 'missing data' ]
         end
 
         username = data['username']
         email = data['email']
-        bio = data['bio']
+        bio = nil
         
         model = User.new(username, email, bio, nil, @db_client)
         code = model.save
 
         if code == 0
-            return 406
+            return [ 406, "can't save data" ]
         end
-        201
+        [ 201, "new account is created" ]
     end
 
     def update(id, data)
