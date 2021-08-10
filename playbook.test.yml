@@ -32,4 +32,6 @@
         apt:
             update_cache: yes
             upgrade: yes
-      
+      - name: install rbenv
+        become: yes
+        apt: name=rbenv
