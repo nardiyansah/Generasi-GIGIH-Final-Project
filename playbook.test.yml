@@ -35,3 +35,8 @@
       - name: install rbenv
         become: yes
         apt: name=rbenv
+      - name: make directory ruby-build plugins
+        shell: mkdir -p "$(rbenv root)"/plugins
+      - name: pull ruby-build plugins
+        shell: git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+      
