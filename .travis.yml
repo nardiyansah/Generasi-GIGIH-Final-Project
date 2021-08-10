@@ -1,0 +1,11 @@
+language: python
+
+python:
+- '2.7'
+
+before_install:
+- chmod 400 ~/.ssh/id_rsa
+
+include:
+- stage: deploy-production
+  script: ansible-playbook playbook.yml --verbose
