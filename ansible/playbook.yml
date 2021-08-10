@@ -4,7 +4,7 @@
       - name: remove existing app bundle
         command: rm -rf build.tgz
       - name: create application bundle
-        command: tar --exclude-from='./.exclude' -zcvf build.tgz .
+        command: tar -zcvf build.tgz .
 
 - name: run in remote server
   hosts: all
@@ -19,7 +19,7 @@
             state: directory
       - name: copy builded project to app directory server
         ansible.builtin.copy:
-            src: ./build.tgz
+            src: build.tgz
             dest: "{{ ansible_facts['env']['HOME'] }}/app/build.tgz"
       - name: extract app bundle
         command: >
