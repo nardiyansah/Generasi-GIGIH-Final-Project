@@ -45,3 +45,10 @@
             creates: .rbenv/plugins/ruby-build
       - name: install ruby
         command: rbenv install 2.7.0
+        args:
+            creates: .rbenv/versions/2.7.0
+      - name: install bundler
+        become: yes
+        command: gem install bundler
+        args:
+            creates: /var/lib/gems/2.7.0/gems/bundler*
