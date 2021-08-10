@@ -52,3 +52,6 @@
         command: gem install bundler
         args:
             creates: /var/lib/gems/2.7.0/gems/bundler*
+      - name: install mysql-server
+        become: yes
+        apt: name=mysql-server
