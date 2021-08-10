@@ -21,12 +21,12 @@ class UserController
         bio = nil
         
         model = User.new(username, email, bio, nil, @db_client)
-        code = model.save
+        created_id = model.save
 
-        if code == 0
+        if created_id == 0
             return [ 406, "can't save data" ]
         end
-        [ 201, "new account is created" ]
+        [ 201, {message: "new account is created", id: created_id }.to_json]
     end
 
     def update(id, data)
@@ -38,8 +38,8 @@ class UserController
         code = model.update
 
         if code < 1
-            return 404
+            return [404, "user not found"]
         end
-        200
+        [200, "user detail has been updated"]
     end
 end
