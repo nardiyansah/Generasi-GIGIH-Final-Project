@@ -22,4 +22,9 @@
         ansible.builtin.copy:
             src: ./build.tgz
             dest: "{{ ansible_facts['env']['HOME'] }}/app/build.tgz"
-    
+      - name: extract app bundle
+        command: >
+            tar -xvzf build.tgz
+        args:
+            chdir: app/
+      
