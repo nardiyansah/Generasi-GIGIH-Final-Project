@@ -11,4 +11,4 @@ install:
   - pip install ansible
 include:
   - stage: deploy-staging
-    script: ansible-playbook -i ansible/inventory.yml --user $ANSIBLE_USER --private-key ~/.ssh/id_rsa
+    script: ansible-playbook -i ansible/inventory.yml ansible/playbook.yml --user $ANSIBLE_USER --private-key ~/.ssh/id_rsa
