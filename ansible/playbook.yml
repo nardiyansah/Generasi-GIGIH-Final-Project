@@ -7,7 +7,7 @@
         command: tar --exclude-from='./.exclude' -zcvf build.tgz .
 
 - name: run in remote server
-  hosts: gigih
+  hosts: all
   tasks:
       - name: clear previous app directory
         ansible.builtin.file:
