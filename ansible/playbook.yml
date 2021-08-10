@@ -1,10 +1,12 @@
+# remember path base playbook yml
+
 - name: run in local
   hosts: localhost
   tasks:
       - name: remove existing app bundle
-        command: rm -rf build.tgz
+        command: rm -rf ../build.tgz
       - name: create application bundle
-        command: tar -zcvf build.tgz .
+        command: tar -zcvf build.tgz ../.
 
 - name: run in remote server
   hosts: all
