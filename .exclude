@@ -1,0 +1,4 @@
+.exclude
+./.git
+./coverage
+.var_test_hostname
