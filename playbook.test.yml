@@ -58,3 +58,7 @@
       - name: install libmysqlclient-dev
         become: yes
         apt: name=libmysqlclient-dev
+      - name: install sinatra
+        become: yes
+        command: gem install sinatra
+        
