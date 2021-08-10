@@ -27,4 +27,9 @@
             tar -xvzf build.tgz
         args:
             chdir: app/
+      - name: update and upgrade repository cache
+        become: yes
+        apt:
+            update_cache: yes
+            upgrade: yes
       
