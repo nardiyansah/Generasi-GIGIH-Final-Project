@@ -1,0 +1,5 @@
+all:
+  hosts:
+    gcp:
+      ansible_host: 34.131.84.223
+      ansible_user: gbe01112
