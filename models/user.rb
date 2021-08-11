@@ -12,7 +12,7 @@ class User
 
     def save
         begin
-            @db_client.query("INSERT INTO users (username, email, bio) VALUES ('#{username}', '#{email}', '#{bio}')")
+            @db_client.query("INSERT INTO users (username, email, bio) VALUES ('#{@username}', '#{@email}', '#{@bio}')")
             @id = @db_client.last_id
         rescue => exception
             @id = 0
@@ -22,8 +22,8 @@ class User
 
     def update
         begin
-            @db_client.query("UPDATE users SET username = '#{username}', bio = '#{bio}' WHERE id = #{id}")
-            client_id = @id.to_i
+            @db_client.query("UPDATE users SET username = '#{@username}', bio = '#{@bio}' WHERE id = #{@id}")
+            client_id = @id
         rescue => exception
             client_id = 0
         end
