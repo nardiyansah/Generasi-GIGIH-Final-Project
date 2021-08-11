@@ -41,7 +41,7 @@ RSpec.describe 'user controller' do
             controller.create(data)
             status = controller.create(data)
 
-            expect(status).to eq(406)
+            expect(status).to eq([406, "can't save data, maybe the data is already exist" ])
         end
 
         it 'should not accept request withoud data' do

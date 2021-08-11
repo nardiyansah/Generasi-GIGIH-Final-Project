@@ -24,7 +24,7 @@ class UserController
         created_id = model.save
 
         if created_id == 0
-            return [ 406, "can't save data" ]
+            return [ 406, "can't save data, maybe the data is already exist" ]
         end
         [ 201, {message: "new account is created", id: created_id }.to_json]
     end
