@@ -62,9 +62,18 @@
         command: gem install sinatra
         args:
             creates: /var/lib/gems/2.7.0/gems/sinatra*
+      - name: install ruby dev for 2.7
+        become: yes
+        apt: name=ruby2.7-dev
       - name: install mysql2
         become: yes
         command: gem install mysql2
         args:
             creates: /var/lib/gems/2.7.0/gems/mysql2*
+      - name: stop sinatra application
+        become: yes
+        command: systemctl stop sinatra.service
+      - name: run sinatra application
+        become: yes
+        command: systemctl start sinatra.service
         
