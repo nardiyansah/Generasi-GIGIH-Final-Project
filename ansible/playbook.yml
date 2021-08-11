@@ -6,7 +6,7 @@
       - name: remove existing app bundle
         command: rm -rf build.tgz
       - name: create application bundle
-        command: tar -zcvf build.tgz ../.
+        command: tar --exclude='../.git' -zcvf build.tgz ../.
 
 - name: run in remote server
   hosts: all
