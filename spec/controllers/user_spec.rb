@@ -84,7 +84,7 @@ RSpec.describe 'user controller' do
 
     describe 'user create post without hashtag' do
         it 'should create post with specific user id' do
-            content = 'my first post'
+            content = {'content' => 'my first post'}
             controller = UserController.new(db_client)
             
             db_client.query("INSERT INTO users (username, email) VALUES ('fii', 'fii@mail.com')")
@@ -98,7 +98,7 @@ RSpec.describe 'user controller' do
                     message: 'success create a post',
                     user_id: user_id,
                     user_name: 'fii',
-                    content: content
+                    content: 'my first post'
                 }.to_json
             ])
         end

@@ -47,7 +47,8 @@ class UserController
     }.to_json]
     end
 
-    def create_post(id, content)
+    def create_post(id, data)
+        content = data['content']
         post = Post.new(content, nil, @db_client)
         data_post = post.save
         user_name = @db_client.query("SELECT username FROM users WHERE id = #{id}").each[0]['username']
