@@ -9,11 +9,11 @@ class UserController
 
     def create(data)
         if data.nil?
-            return [ 400, 'missing data' ]
+            return [ 400, 'missing data. please sure you already give username and email' ]
         end
 
         if data['username'].nil? or data['username'].empty? or data['email'].nil? or data['email'].empty?
-            return [ 400, 'missing data' ]
+            return [ 400, 'missing data. please sure you already give username and email' ]
         end
 
         username = data['username']
