@@ -12,4 +12,4 @@ install:
 jobs:
   include:
   - stage: deploy-staging
-    script: ansible-playbook -i ansible/inventory.yml ansible/playbook.yml --user gbe01112 --private-key ~/.ssh/id_rsa
+    script: ansible-playbook -i ansible/inventory.yml ansible/playbook.yml --user gbe01112 --private-key ~/.ssh/id_rsa --verbose
