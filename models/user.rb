@@ -22,12 +22,12 @@ class User
 
     def update
         begin
-            @db_client.query("UPDATE users SET username = '#{username}', email = '#{email}', bio = '#{bio}' WHERE id = #{id}")
-            affected_rows = @db_client.affected_rows
+            @db_client.query("UPDATE users SET username = '#{username}', bio = '#{bio}' WHERE id = #{id}")
+            client_id = @id
         rescue => exception
-            affected_rows = 0
+            client_id = 0
         end
-        affected_rows
+        client_id
     end
 
 end

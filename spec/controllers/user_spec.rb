@@ -48,13 +48,13 @@ RSpec.describe 'user controller' do
             controller = UserController.new(db_client)
 
             status = controller.create(nil)
-            expect(status).to eq(400)
+            expect(status).to eq([ 400, 'missing data. please sure you already give username and email' ])
 
             status = controller.create({"username" => ""})
-            expect(status).to eq(400)
+            expect(status).to eq([ 400, 'missing data. please sure you already give username and email' ])
 
             status = controller.create({"username" => "", "email" => "foo@mail.com"})
-            expect(status).to eq(400)
+            expect(status).to eq([ 400, 'missing data. please sure you already give username and email' ])
         end
     end
 
@@ -70,7 +70,14 @@ RSpec.describe 'user controller' do
 
             status = controller.update(id, data)
 
-            expect(status).to eq(200)
+            expect(status).to eq([
+                200,
+                {
+                    message: "data has been updated",
+                    username: data['username'],
+                    bio: data['bio']
+                }.to_json
+            ])
         end
     end
 

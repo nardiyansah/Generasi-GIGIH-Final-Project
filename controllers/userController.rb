@@ -31,15 +31,18 @@ class UserController
 
     def update(id, data)
         username = data['username']
-        email = data['email']
         bio = data['bio']
 
-        model = User.new(username, email, bio, id, @db_client)
-        code = model.update
+        model = User.new(username, nil, bio, id, @db_client)
+        id = model.update
 
-        if code < 1
+        if id < 1
             return [404, "user not found"]
         end
-        [200, "user detail has been updated"]
+        [200, {
+            message: "data has been updated",
+            username: username,
+            bio: bio
+    }.to_json]
     end
 end
