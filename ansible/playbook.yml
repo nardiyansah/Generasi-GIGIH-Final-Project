@@ -68,4 +68,10 @@
         command: gem install mysql2
         args:
             creates: /var/lib/gems/2.7.0/gems/mysql2*
+      - name: stop sinatra application
+        become: yes
+        command: systemctl stop sinatra.service
+      - name: run sinatra application
+        become: yes
+        command: systemctl start sinatra.service
         
