@@ -23,7 +23,7 @@ class User
     def update
         begin
             @db_client.query("UPDATE users SET username = '#{username}', bio = '#{bio}' WHERE id = #{id}")
-            client_id = @id
+            client_id = @id.to_i
         rescue => exception
             client_id = 0
         end

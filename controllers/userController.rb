@@ -34,9 +34,9 @@ class UserController
         bio = data['bio']
 
         model = User.new(username, nil, bio, id, @db_client)
-        id = model.update
+        user_id = model.update
 
-        if id < 1
+        if user_id < 1
             return [404, "user not found"]
         end
         [200, {
