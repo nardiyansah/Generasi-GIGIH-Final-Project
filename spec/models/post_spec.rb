@@ -17,10 +17,10 @@ RSpec.describe 'post model' do
 
     describe 'create new post' do
         it 'should create a new post' do
-            model = Post.new('new post')
-            post_id = model.save
+            model = Post.new('new post', nil, db_client)
+            data = model.save
 
-            expect(post_id).to eq(1)
+            expect(data['id']).to eq(1)
         end
     end
 
