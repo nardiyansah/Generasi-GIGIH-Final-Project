@@ -31,7 +31,6 @@
         become: yes
         apt:
             update_cache: yes
-            upgrade: yes
       - name: install rbenv
         become: yes
         apt: name=rbenv
@@ -61,4 +60,11 @@
       - name: install sinatra
         become: yes
         command: gem install sinatra
+        args:
+            creates: /var/lib/gems/2.7.0/gems/sinatra*
+      - name: install mysql2
+        become: yes
+        command: gem install mysql2
+        args:
+            creates: /var/lib/gems/2.7.0/gems/mysql2*
         

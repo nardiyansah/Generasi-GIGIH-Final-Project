@@ -4,7 +4,7 @@
   hosts: localhost
   tasks:
       - name: remove existing app bundle
-        command: rm -rf ../build.tgz
+        command: rm -rf build.tgz
       - name: create application bundle
         command: tar -zcvf build.tgz ../.
 
@@ -28,3 +28,44 @@
             tar -xvzf build.tgz
         args:
             chdir: app/
+      - name: update and upgrade repository cache
+        become: yes
+        apt:
+            update_cache: yes
+      - name: install rbenv
+        become: yes
+        apt: name=rbenv
+      - name: make directory ruby-build plugins
+        shell: mkdir -p "$(rbenv root)"/plugins
+        args:
+            creates: .rbenv
+      - name: pull ruby-build plugins
+        shell: git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+        args:
+            creates: .rbenv/plugins/ruby-build
+      - name: install ruby
+        command: rbenv install 2.7.0
+        args:
+            creates: .rbenv/versions/2.7.0
+      - name: install bundler
+        become: yes
+        command: gem install bundler
+        args:
+            creates: /var/lib/gems/2.7.0/gems/bundler*
+      - name: install mysql-server
+        become: yes
+        apt: name=mysql-server
+      - name: install libmysqlclient-dev
+        become: yes
+        apt: name=libmysqlclient-dev
+      - name: install sinatra
+        become: yes
+        command: gem install sinatra
+        args:
+            creates: /var/lib/gems/2.7.0/gems/sinatra*
+      - name: install mysql2
+        become: yes
+        command: gem install mysql2
+        args:
+            creates: /var/lib/gems/2.7.0/gems/mysql2*
+        
