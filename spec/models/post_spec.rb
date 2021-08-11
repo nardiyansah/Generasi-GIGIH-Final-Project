@@ -21,6 +21,7 @@ RSpec.describe 'post model' do
             data = model.save
 
             expect(data['id']).to eq(1)
+            expect(data['content']).to eq('new post')
         end
     end
 
