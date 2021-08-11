@@ -1,4 +1,5 @@
 require_relative '../models/user'
+require_relative '../models/post'
 
 class UserController
     attr_reader :db_client
@@ -44,5 +45,21 @@ class UserController
             username: username,
             bio: bio
     }.to_json]
+    end
+
+    def create_post(id, content)
+        post = Post.new(content, nil, @db_client)
+        data_post = post.save
+        user_name = @db_client.query("SELECT username FROM users WHERE id = #{id}").each[0]['username']
+        @db_client.query("INSERT INTO user_posts (user_id, post_id) VALUES (#{id}, #{data_post['id']})")
+        [
+            201,
+            {
+                message: 'success create a post',
+                user_id: id,
+                user_name: user_name,
+                content: content
+            }.to_json
+        ]
     end
 end

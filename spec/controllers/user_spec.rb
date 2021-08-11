@@ -6,9 +6,10 @@ RSpec.describe 'user controller' do
     db_client = create_db_client
 
     before(:each) do
-        db_client.query('SET FOREIGN_KEY_CHECKS = 0')
-        db_client.query('TRUNCATE users')
-        db_client.query('SET FOREIGN_KEY_CHECKS = 1')
+        client = create_db_client
+        client.query('set foreign_key_checks = 0')
+        client.query('truncate users')
+        client.query('set foreign_key_checks = 1')
     end
 
     describe 'initialize controller' do
@@ -76,6 +77,28 @@ RSpec.describe 'user controller' do
                     message: "data has been updated",
                     username: data['username'],
                     bio: data['bio']
+                }.to_json
+            ])
+        end
+    end
+
+    describe 'user create post without hashtag' do
+        it 'should create post with specific user id' do
+            content = 'my first post'
+            controller = UserController.new(db_client)
+            
+            db_client.query("INSERT INTO users (username, email) VALUES ('fii', 'fii@mail.com')")
+            user_id = db_client.last_id
+            
+            data = controller.create_post(user_id, content)
+
+            expect(data).to eq([
+                201,
+                {
+                    message: 'success create a post',
+                    user_id: user_id,
+                    user_name: 'fii',
+                    content: content
                 }.to_json
             ])
         end

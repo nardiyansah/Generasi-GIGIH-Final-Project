@@ -8,9 +8,10 @@ RSpec.describe 'user model' do
     user = User.new(username, email)
 
     before(:each) do
-        db_client.query('SET FOREIGN_KEY_CHECKS = 0')
-        db_client.query('TRUNCATE users')
-        db_client.query('SET FOREIGN_KEY_CHECKS = 1')
+        client = create_db_client
+        client.query('set foreign_key_checks = 0')
+        client.query('truncate users')
+        client.query('set foreign_key_checks = 1')
     end
 
     describe "initialize object class" do
