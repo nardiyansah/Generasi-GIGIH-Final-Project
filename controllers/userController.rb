@@ -1,5 +1,6 @@
 require_relative '../models/user'
 require_relative '../models/post'
+require_relative '../models/hashtag'
 
 class UserController
     attr_reader :db_client
@@ -49,18 +50,31 @@ class UserController
 
     def create_post(id, data)
         user_id = id.to_i
+
         content = data['content']
         post = Post.new(content, nil, @db_client)
         data_post = post.save
+
         user_name = @db_client.query("SELECT username FROM users WHERE id = #{user_id}").each[0]['username']
+
         @db_client.query("INSERT INTO user_posts (user_id, post_id) VALUES (#{user_id}, #{data_post['id']})")
+
+        hashtags = data['hashtags']
+        hashtag_model = Hashtag.new(hashtags, @db_client)
+        data_hashtags = hashtag_model.save
+
+        data_hashtags.each do |tag|
+            @db_client.query("insert into post_hashtags (post_id, hashtag_id) values (#{data_post['id']}, #{tag['id']})")
+        end
+
         [
             201,
             {
                 message: 'success create a post',
                 user_id: user_id,
                 user_name: user_name,
-                content: content
+                content: content,
+                tags: data_hashtags
             }.to_json
         ]
     end
