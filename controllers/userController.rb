@@ -48,16 +48,17 @@ class UserController
     end
 
     def create_post(id, data)
+        user_id = id.to_i
         content = data['content']
         post = Post.new(content, nil, @db_client)
         data_post = post.save
-        user_name = @db_client.query("SELECT username FROM users WHERE id = #{id}").each[0]['username']
-        @db_client.query("INSERT INTO user_posts (user_id, post_id) VALUES (#{id}, #{data_post['id']})")
+        user_name = @db_client.query("SELECT username FROM users WHERE id = #{user_id}").each[0]['username']
+        @db_client.query("INSERT INTO user_posts (user_id, post_id) VALUES (#{user_id}, #{data_post['id']})")
         [
             201,
             {
                 message: 'success create a post',
-                user_id: id,
+                user_id: user_id,
                 user_name: user_name,
                 content: content
             }.to_json
