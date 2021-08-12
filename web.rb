@@ -15,7 +15,7 @@ post '/user' do
     response
 end
 
-patch '/user/:id' do
+post '/user/:id' do
     data = JSON.parse request.body.read
     user_controller = UserController.new(db_client)
     response = user_controller.update(params['id'], data)

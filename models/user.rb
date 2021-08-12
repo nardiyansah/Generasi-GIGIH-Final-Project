@@ -22,7 +22,7 @@ class User
 
     def update
         begin
-            @db_client.query("UPDATE users SET username = '#{@username}', bio = '#{@bio}' WHERE id = #{@id}")
+            @db_client.query("UPDATE users SET username = '#{@db_client.escape(@username)}', bio = \"#{@db_client.escape(@bio)}\" WHERE id = #{@id}")
             client_id = @id
         rescue => exception
             client_id = 0
