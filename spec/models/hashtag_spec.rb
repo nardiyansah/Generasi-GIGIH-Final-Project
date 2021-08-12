@@ -20,5 +20,15 @@ RSpec.describe 'hashtag model' do
 
             expect(stored_hashtag[0]['tag']).to eq('ame')
         end
+
+        it 'should save two hashtag' do
+            hashtag = ['ame', 'agari']
+            model = Hashtag.new(hashtag, db_client)
+
+            stored_hashtag = model.save
+
+            expect(stored_hashtag[0]['tag']).to eq('ame')
+            expect(stored_hashtag[1]['tag']).to eq('agari')
+        end
     end
 end
