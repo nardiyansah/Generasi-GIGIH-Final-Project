@@ -101,6 +101,7 @@ RSpec.describe 'user controller' do
                     message: 'success create a post',
                     user_id: user_id,
                     user_name: 'fii',
+                    post_id: 1,
                     content: 'my first post',
                     tags: []
                 }.to_json
@@ -124,6 +125,7 @@ RSpec.describe 'user controller' do
                     message: 'success create a post',
                     user_id: user_id,
                     user_name: 'fii',
+                    post_id: 1,
                     content: 'my first post',
                     tags: [{id: 1, tag: 'ame', amount: 1}]
                 }.to_json
