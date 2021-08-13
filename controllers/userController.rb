@@ -94,7 +94,7 @@ class UserController
         data_hashtags = hashtag_model.save
 
         data_hashtags.each do |tag|
-            @db_client.query("insert into post_hashtags (post_id, hashtag_id) values (#{data_comment['id']}, #{tag['id']})")
+            @db_client.query("insert into comment_hashtags (comment_id, hashtag_id) values (#{data_comment['id']}, #{tag['id']})")
         end
 
         [
