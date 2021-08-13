@@ -52,12 +52,10 @@ class UserController
         user_id = id.to_i
 
         content = data['content']
-        post = Post.new(content, nil, @db_client)
+        post = Post.new(content, nil, user_id, @db_client)
         data_post = post.save
 
         user_name = @db_client.query("SELECT username FROM users WHERE id = #{user_id}").each[0]['username']
-
-        @db_client.query("INSERT INTO user_posts (user_id, post_id) VALUES (#{user_id}, #{data_post['id']})")
 
         hashtags = data['hashtags']
         hashtag_model = Hashtag.new(hashtags, @db_client)

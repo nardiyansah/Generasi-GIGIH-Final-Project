@@ -10,7 +10,6 @@ RSpec.describe 'post model' do
         client.query('set foreign_key_checks = 0')
         client.query('truncate users')
         client.query('truncate posts')
-        client.query('truncate user_posts')
         client.query('truncate hashtags')
         client.query('truncate post_hashtags')
         client.query('set foreign_key_checks = 1')
@@ -18,7 +17,8 @@ RSpec.describe 'post model' do
 
     describe 'create new post' do
         it 'should create a new post' do
-            model = Post.new('new post', nil, db_client)
+            db_client.query(query_insert_user)
+            model = Post.new('new post', nil, 1, db_client)
             data = model.save
 
             expect(data['id']).to eq(1)
