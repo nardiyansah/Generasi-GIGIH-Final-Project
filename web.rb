@@ -40,3 +40,11 @@ get '/posts' do
     response = post_controller.get_post_for_hashtag(tag)
     response
 end
+
+post '/comment/:user_id/:post_id' do
+    content_type :json
+    data = JSON.parse request.body.read
+    user_controller = UserController.new(db_client)
+    response = user_controller.create_comment(params['user_id'], params['post_id'], data)
+    response
+end
