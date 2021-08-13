@@ -35,8 +35,7 @@ RSpec.describe 'post controller' do
             post_controller = PostController.new(db_client)
             posts = post_controller.get_post_for_hashtag(tag)
 
-            expect(posts[0]['username']).to eq(username)
-            expect(posts[0]['tag']).to eq(tag)
+            expect(posts[0]).to eq(200)
         end
     end
 
