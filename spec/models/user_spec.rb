@@ -5,7 +5,8 @@ RSpec.describe 'user model' do
     db_client = create_db_client
     username = 'foo'
     email = 'foo@mail.com'
-    user = User.new(username, email)
+    
+    user = User.new(username, email, nil, nil, db_client)
 
     before(:each) do
         client = create_db_client
@@ -51,10 +52,9 @@ RSpec.describe 'user model' do
     describe "create new user" do
         
         it 'should save new user account' do
-            user = User.new(username, email, nil, nil, db_client)
             user_id = user.save
 
-            expect(user_id).to eq(1)
+            expect(user_id).to eq(user.id)
         end
 
         it 'should store bio if registered with bio' do
@@ -69,7 +69,6 @@ RSpec.describe 'user model' do
         end
 
         it 'should not store data user if already exist in database' do
-            user = User.new(username, email, nil, nil, db_client)
             first_insert = user.save
             second_insert = user.save
 
@@ -80,7 +79,6 @@ RSpec.describe 'user model' do
 
     describe "change data user" do
         it 'should save new data user with specific id' do
-            
             user.save
             expect(user.username).to eq(username)
 
