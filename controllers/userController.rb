@@ -1,5 +1,6 @@
 require_relative '../models/user'
 require_relative '../models/post'
+require_relative '../models/comment'
 require_relative '../models/hashtag'
 
 class UserController
@@ -72,6 +73,37 @@ class UserController
                 user_id: user_id,
                 user_name: user_name,
                 post_id: data_post['id'],
+                content: content,
+                tags: data_hashtags
+            }.to_json
+        ]
+    end
+
+    def create_comment(userId, postId, data)
+        user_id = userId.to_i
+        post_id = postId.to_i
+
+        content = data['content']
+        comment = Comment.new(content, nil, post_id, user_id, @db_client)
+        data_comment = comment.save
+
+        user_name = @db_client.query("SELECT username FROM users WHERE id = #{user_id}").each[0]['username']
+
+        hashtags = data['hashtags']
+        hashtag_model = Hashtag.new(hashtags, @db_client)
+        data_hashtags = hashtag_model.save
+
+        data_hashtags.each do |tag|
+            @db_client.query("insert into post_hashtags (post_id, hashtag_id) values (#{data_comment['id']}, #{tag['id']})")
+        end
+
+        [
+            201,
+            {
+                message: 'success create a comment',
+                user_id: user_id,
+                user_name: user_name,
+                comment_id: data_comment['id'],
                 content: content,
                 tags: data_hashtags
             }.to_json

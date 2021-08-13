@@ -10,8 +10,10 @@ RSpec.describe 'user controller' do
         client.query('set foreign_key_checks = 0')
         client.query('truncate users')
         client.query('truncate posts')
+        client.query('truncate comments')
         client.query('truncate hashtags')
         client.query('truncate post_hashtags')
+        client.query('truncate comment_hashtags')
         client.query('set foreign_key_checks = 1')
     end
 
@@ -128,6 +130,32 @@ RSpec.describe 'user controller' do
                     post_id: 1,
                     content: 'my first post',
                     tags: [{id: 1, tag: 'ame', amount: 1}]
+                }.to_json
+            ])
+        end
+    end
+
+    describe 'user comment on post' do
+        it 'should create comment with specific id' do
+            content = {'content' => 'my first comment'}
+            controller = UserController.new(db_client)
+            
+            db_client.query("INSERT INTO users (username, email) VALUES ('fii', 'fii@mail.com')")
+            user_id = db_client.last_id
+            db_client.query("insert into posts (content, user_id) values ('post', #{user_id})")
+            post_id = db_client.last_id
+            
+            data = controller.create_comment(user_id, post_id, content)
+
+            expect(data).to eq([
+                201,
+                {
+                    message: 'success create a comment',
+                    user_id: user_id,
+                    user_name: 'fii',
+                    comment_id: 1,
+                    content: 'my first comment',
+                    tags: []
                 }.to_json
             ])
         end
