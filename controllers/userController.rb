@@ -71,6 +71,7 @@ class UserController
                 message: 'success create a post',
                 user_id: user_id,
                 user_name: user_name,
+                post_id: data_post['id'],
                 content: content,
                 tags: data_hashtags
             }.to_json
