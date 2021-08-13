@@ -7,6 +7,9 @@ class PostController
 
     def get_post_for_hashtag(tag)
         data = Post.get_post_with_hashtag(tag, @db_client)
-        data
+        [
+            200,
+            {posts: data}.to_json
+        ]
     end
 end
