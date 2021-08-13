@@ -9,6 +9,9 @@ RSpec.describe 'user controller' do
         client = create_db_client
         client.query('set foreign_key_checks = 0')
         client.query('truncate users')
+        client.query('truncate posts')
+        client.query('truncate hashtags')
+        client.query('truncate post_hashtags')
         client.query('set foreign_key_checks = 1')
     end
 
