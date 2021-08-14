@@ -29,7 +29,7 @@ end
 
 post '/user/post/:id' do
     content_type :json
-    attachment = params['attachment']
+    attachment = params[:attachment]
 
     if attachment.nil?
         data = JSON.parse request.body.read
@@ -47,7 +47,7 @@ post '/user/post/:id' do
                 f.write(tempfile.read)
             end
             file_path = "#{base_url}/#{file_name}"
-            data = {content: params[:content], hashtags: params[:hashtags], attachment: file_path}
+            data = {"content" => params[:content], "hashtags" => params[:hashtags], "attachment" => file_path}
             user_controller = UserController.new(db_client)
             response = user_controller.create_post(params['id'], data)
             return response

@@ -52,8 +52,8 @@ class UserController
     def create_post(id, data)
         user_id = id.to_i
 
-        content = data[:content]
-        attachment = data[:attachment]
+        content = data['content']
+        attachment = data['attachment']
         data_post = nil
         
         # process the attachment
