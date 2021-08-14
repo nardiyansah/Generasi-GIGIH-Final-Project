@@ -52,9 +52,18 @@ class UserController
     def create_post(id, data)
         user_id = id.to_i
 
-        content = data['content']
-        post = Post.new(content, nil, user_id, @db_client)
-        data_post = post.save
+        content = data[:content]
+        attachment = data[:attachment]
+        data_post = nil
+        
+        # process the attachment
+        unless attachment.nil?
+            post = Post.new(content, attachment, user_id, @db_client)
+            data_post = post.save
+        else
+            post = Post.new(content, nil, user_id, @db_client)
+            data_post = post.save
+        end
 
         user_name = @db_client.query("SELECT username FROM users WHERE id = #{user_id}").each[0]['username']
 
