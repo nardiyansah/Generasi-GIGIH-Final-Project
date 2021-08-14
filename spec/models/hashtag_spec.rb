@@ -8,6 +8,11 @@ RSpec.describe 'hashtag model' do
         client = create_db_client
         client.query('set foreign_key_checks = 0')
         client.query('truncate hashtags')
+        client.query('truncate comment_hashtags')
+        client.query('truncate post_hashtags')
+        client.query('truncate comments')
+        client.query('truncate posts')
+        client.query('truncate users')
         client.query('set foreign_key_checks = 1')
     end
     
@@ -29,6 +34,45 @@ RSpec.describe 'hashtag model' do
 
             expect(stored_hashtag[0]['tag']).to eq('ame')
             expect(stored_hashtag[1]['tag']).to eq('agari')
+        end
+    end
+
+    describe 'get trending hashtags' do
+        it 'should return 5 top trending hashtags' do
+            db_client.query("insert into users (username, email) values ('foo', 'foo@mail.com')")
+            user_id = db_client.last_id
+            db_client.query("insert into posts (content, user_id) values ('this is post', #{user_id})")
+            post_id = db_client.last_id
+            db_client.query("insert into comments (content, post_id, user_id) values ('this is comment', #{post_id}, #{user_id})")
+            comment_id = db_client.last_id
+
+            db_client.query("insert into hashtags (tag, amount) values ('ame', 1) on duplicate key update amount = values(amount) + 1")
+            tag_1 = db_client.last_id
+
+            db_client.query("insert into hashtags (tag, amount) values ('agari', 1) on duplicate key update amount = values(amount) + 1")
+            tag_2 = db_client.last_id
+
+            i = 0
+            until i > 5 do
+                db_client.query("insert into hashtags (tag, amount) values ('ame', 1) on duplicate key update amount = values(amount) + 1")
+                db_client.query("insert into post_hashtags (post_id, hashtag_id) values (#{post_id}, #{tag_1})")
+                i += 1
+            end
+
+            i = 0
+            until i > 3 do
+                db_client.query("insert into hashtags (tag, amount) values ('agari', 1) on duplicate key update amount = values(amount) + 1")
+                db_client.query("insert into comment_hashtags (comment_id, hashtag_id) values (#{comment_id}, #{tag_2})")
+                i += 1
+            end
+
+            trending_tag = Hashtag.get_trending(db_client)
+
+            expect(trending_tag[0]['tag']).to eq('ame')
+            expect(trending_tag[0]['amount']).to eq(6)
+
+            expect(trending_tag[1]['tag']).to eq('agari')
+            expect(trending_tag[1]['amount']).to eq(4)
         end
     end
 end
