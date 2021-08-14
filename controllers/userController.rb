@@ -93,8 +93,17 @@ class UserController
         post_id = postId.to_i
 
         content = data['content']
-        comment = Comment.new(content, nil, post_id, user_id, @db_client)
-        data_comment = comment.save
+        attachment = data['attachment']
+        data_comment = nil
+
+        # process the attachment
+        unless attachment.nil?
+            comment = Comment.new(content, attachment, post_id, user_id, @db_client)
+            data_comment = comment.save
+        else
+            comment = Comment.new(content, nil, post_id, user_id, @db_client)
+            data_comment = comment.save
+        end
 
         user_name = @db_client.query("SELECT username FROM users WHERE id = #{user_id}").each[0]['username']
 

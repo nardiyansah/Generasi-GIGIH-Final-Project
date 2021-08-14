@@ -65,10 +65,30 @@ end
 
 post '/comment/:user_id/:post_id' do
     content_type :json
-    data = JSON.parse request.body.read
-    user_controller = UserController.new(db_client)
-    response = user_controller.create_comment(params['user_id'], params['post_id'], data)
-    response
+    attachment = params[:attachment]
+
+    if attachment.nil?
+        data = JSON.parse request.body.read
+        user_controller = UserController.new(db_client)
+        response = user_controller.create_comment(params['user_id'], params['post_id'], data)
+        return response
+    else
+        accepted_formats = [".jpg", ".png", ".gif", ".mp4"]
+        file_name = File.basename(attachment[:tempfile])
+        tempfile = attachment[:tempfile]
+        is_accepted = accepted_formats.include? File.extname(file_name)
+        
+        if is_accepted
+            File.open("./public/#{file_name}", 'wb') do |f|
+                f.write(tempfile.read)
+            end
+            file_path = "#{base_url}/#{file_name}"
+            data = {"content" => params[:content], "hashtags" => params[:hashtags], "attachment" => file_path}
+            user_controller = UserController.new(db_client)
+            response = user_controller.create_comment(params['user_id'], params['post_id'], data)
+            return response
+        end
+    end
 end
 
 get '/trending_tags' do
