@@ -105,6 +105,7 @@ RSpec.describe 'user controller' do
                     user_name: 'fii',
                     post_id: 1,
                     content: 'my first post',
+                    attachment: "",
                     tags: []
                 }.to_json
             ])
@@ -129,6 +130,7 @@ RSpec.describe 'user controller' do
                     user_name: 'fii',
                     post_id: 1,
                     content: 'my first post',
+                    attachment: "",
                     tags: [{id: 1, tag: 'ame', amount: 1}]
                 }.to_json
             ])
@@ -155,6 +157,7 @@ RSpec.describe 'user controller' do
                     user_name: 'fii',
                     comment_id: 1,
                     content: 'my first comment',
+                    attachment: "",
                     tags: []
                 }.to_json
             ])
@@ -181,6 +184,7 @@ RSpec.describe 'user controller' do
                     user_name: 'fii',
                     comment_id: 1,
                     content: 'my first comment',
+                    attachment: "",
                     tags: [{id: 1, tag: 'ame', amount: 1}]
                 }.to_json
             ])

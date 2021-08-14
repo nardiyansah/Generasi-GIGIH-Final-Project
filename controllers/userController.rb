@@ -83,6 +83,7 @@ class UserController
                 user_name: user_name,
                 post_id: data_post['id'],
                 content: content,
+                attachment: data_post['attachment'],
                 tags: data_hashtags
             }.to_json
         ]
@@ -123,6 +124,7 @@ class UserController
                 user_name: user_name,
                 comment_id: data_comment['id'],
                 content: content,
+                attachment: data_comment['attachment'],
                 tags: data_hashtags
             }.to_json
         ]
