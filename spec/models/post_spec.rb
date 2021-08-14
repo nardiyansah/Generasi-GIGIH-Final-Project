@@ -24,6 +24,15 @@ RSpec.describe 'post model' do
             expect(data['id']).to eq(1)
             expect(data['content']).to eq('new post')
         end
+
+        it 'should create a new post with attachment' do
+            db_client.query(query_insert_user)
+            model = Post.new('new post', 'test.txt', 1, db_client)
+
+            data = model.save
+            
+            expect(data['attachment']).to eq('test.txt')
+        end
     end
 
 end
