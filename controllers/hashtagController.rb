@@ -9,7 +9,7 @@ class HashtagController
         data = Hashtag.get_trending(@db_client)
         [
             200,
-            trending_tags: data.to_json
+            {trending_tags: data}.to_json
         ]
     end
 end
