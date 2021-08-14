@@ -2,6 +2,7 @@ require 'sinatra'
 require_relative './db_connector'
 require_relative './controllers/userController'
 require_relative './controllers/postController'
+require_relative './controllers/hashtagController'
 
 db_client = create_db_client
 
@@ -46,5 +47,12 @@ post '/comment/:user_id/:post_id' do
     data = JSON.parse request.body.read
     user_controller = UserController.new(db_client)
     response = user_controller.create_comment(params['user_id'], params['post_id'], data)
+    response
+end
+
+get '/trending_tags' do
+    content_type :json
+    hashtag_controller = HashtagController.new(db_client)
+    response = hashtag_controller.get_trending_tags
     response
 end
