@@ -23,7 +23,7 @@ export DB_USER=root
 export DB_PASS=
 export DB_NAME=social_media_db
 ```
-* run this command to start the app
+* clone this repo and run this command to start the app
 ```sh
 ruby web.rb
 ```
