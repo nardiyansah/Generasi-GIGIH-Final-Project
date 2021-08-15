@@ -34,6 +34,17 @@ I create API documentation with postman API documentation tool. You can visit th
 
 [API Documentation](https://documenter.getpostman.com/view/12017937/Tzz7QdnQ)
 
+In postman I use some global variable. Please make sure you provide it in your postman.
+
+### Global variables
+
+name | initial value | type
+---- | ------------- | ----
+base_url | http://34.131.84.223:4567 (url GCP machine) | string
+user_id | 1 | int
+tag | tag | string
+post_id | 1 | int
+
 ## ERD scheme
 
 For the database I build schema like in the picture. I provide an imported sql with name `social_media_db.sql`.
