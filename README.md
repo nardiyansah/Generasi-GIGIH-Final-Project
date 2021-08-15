@@ -28,6 +28,12 @@ export DB_NAME=social_media_db
 ruby web.rb
 ```
 
+## API Documentation
+
+I create API documentation with postman API documentation tool. You can visit the link below to see the detail about API
+
+[API Documentation](https://documenter.getpostman.com/view/12017937/Tzz7QdnQ)
+
 ## ERD scheme
 
 For the database I build schema like in the picture. I provide an imported sql with name `social_media_db.sql`.
