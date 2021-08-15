@@ -41,7 +41,7 @@ to run the test you can run by command below. (actually i prefer to use format d
 ```sh
 rspec -f d
 ```
-to test endpoint you can go to API documentation and import the url from there.
+to test endpoint you can go to API documentation and import the url from there or you can import the collection from exported collection in `postman collection` folder.
 
 ## API Documentation
 
