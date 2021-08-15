@@ -37,7 +37,7 @@ gem install rspec
 ```sh
 gem install simplecov
 ```
-to run the test you can run by command below. (actrually i prefer to use format document in rspec)
+to run the test you can run by command below. (actually i prefer to use format document in rspec)
 ```sh
 rspec -f d
 ```
