@@ -1,5 +1,6 @@
 # Generasi GIGIH Final Project Backend: Social Media API
 
+![](https://github.com/nardiyansah/Generasi-GIGIH-Final-Project/blob/main/generasi%20gigih.png)
 This repo contain code for generasi GIGIH Final Project in Backend track. The problem for this project is to make API for simple social media. Like other social media, user can make a post with hashtag and attachment, also user can comment and many detail for the API you can see in API documentation.
 
 ## Prerequisite to run application locally
