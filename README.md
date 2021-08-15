@@ -1,6 +1,6 @@
 # Generasi GIGIH Final Project Backend: Social Media API
 
-![](https://github.com/nardiyansah/Generasi-GIGIH-Final-Project/blob/main/generasi%20gigih.png)
+![](https://github.com/nardiyansah/Generasi-GIGIH-Final-Project/blob/main/assets/generasi%20gigih.png)
 This repo contains code for generasi GIGIH Final Project in the Backend track. The problem for this project is to make an API for simple social media. Like other social media, users can make a post with hashtags and one attachment, also users can comment and many details for the API you can see in the API documentation.
 
 ## Prerequisite to run application locally
@@ -64,7 +64,7 @@ post_id | 1 | int
 
 For the database I build schema like in the picture. I provide an imported sql with name `social_media_db.sql`.
 
-![](https://github.com/nardiyansah/Generasi-GIGIH-Final-Project/blob/main/social%20media.png)
+![](https://github.com/nardiyansah/Generasi-GIGIH-Final-Project/blob/main/assets/social%20media.png)
 
 ### Note for erd & database
 
