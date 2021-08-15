@@ -1,0 +1,505 @@
+{
+	"info": {
+		"_postman_id": "78c2c394-4c6d-4d3c-828c-fda3b04b7e31",
+		"name": "GIGIH social media API",
+		"description": "## Problem:\nYou are tasked with developing a social media application which can be used to share information with other people. This application will only be used by people that work in a certain company so we cannot use existing public social media.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create new account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json()\r",
+							"\r",
+							"pm.globals.set('user_id', response['id'])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/user",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user"
+					]
+				},
+				"description": "## Specification\nAs a user, I want to save my username, email, and bio description.\n\nAuthentication and authorization is out of scope of this story and you don’t need to implement them"
+			},
+			"response": []
+		},
+		{
+			"name": "edit account detail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"bio\": \"{{$randomPhrase}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/user/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{user_id}}"
+						}
+					]
+				},
+				"description": "## Specification\nAs a user, I want to save my username, email, and bio description.\n\nAuthentication and authorization is out of scope of this story and you don’t need to implement them"
+			},
+			"response": []
+		},
+		{
+			"name": "create new post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json()\r",
+							"const post_id = response['post_id']\r",
+							"\r",
+							"pm.globals.set('post_id', post_id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"{{$randomPhrase}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/user/post/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"post",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{user_id}}"
+						}
+					]
+				},
+				"description": "## Specification\nAs a user, I want to post a text that might contain hashtag(s).\n\nMaximum limit of a text is 1000 characters"
+			},
+			"response": []
+		},
+		{
+			"name": "create new post with hashtag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json()\r",
+							"const tag = response['tags'][0]['tag']\r",
+							"\r",
+							"pm.globals.set('tag', tag)\r",
+							"\r",
+							"const post_id = response['post_id']\r",
+							"\r",
+							"pm.globals.set('post_id', post_id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"{{$randomPhrase}}\",\r\n    \"hashtags\": [\r\n        \"{{$randomNoun}}\",\r\n        \"{{$randomNoun}}\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/user/post/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"post",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{user_id}}"
+						}
+					]
+				},
+				"description": "## Specification\nAs a user, I want to post a text that might contain hashtag(s).\n\nA hashtag is a text that is followed by # symbol, for instance: #generasigigih"
+			},
+			"response": []
+		},
+		{
+			"name": "get posts with certain hashtag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/posts?tag={{tag}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "tag",
+							"value": "{{tag}}"
+						}
+					]
+				},
+				"description": "## Specification\nAs a user, I want to see all posts that contain a certain hashtag.\n\nA user can only filter by one hashtag at a time"
+			},
+			"response": []
+		},
+		{
+			"name": "comment on a post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"{{$randomPhrase}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/comment/:user_id/:post_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"comment",
+						":user_id",
+						":post_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "post_id",
+							"value": "{{post_id}}"
+						}
+					]
+				},
+				"description": "## Specification\nAs a user, I want to comment on a post"
+			},
+			"response": []
+		},
+		{
+			"name": "comment with hashtag on a post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"{{$randomPhrase}}\",\r\n    \"hashtags\": [\r\n        \"{{$randomNoun}}\",\r\n        \"{{$randomNoun}}\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/comment/:user_id/:post_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"comment",
+						":user_id",
+						":post_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "post_id",
+							"value": "{{post_id}}"
+						}
+					]
+				},
+				"description": "## Specification\nAs a user, I want to comment on a post\n\nA comment can contain hashtag(s)\n\nA hashtag occurrence in a comment is counted in trending hashtags calculation"
+			},
+			"response": []
+		},
+		{
+			"name": "list of trending hashtag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/trending_tags",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"trending_tags"
+					]
+				},
+				"description": "## Specification\nAs a user, I want to see the list of trending hashtags\n\nTrending hashtags are the top 5 most posted hashtags in the past 24 hours\n\nA post containing multiple instances of a hashtag only counts as 1 occurrence for trending hashtags calculation\n\nA hashtag occurrence in a comment is counted in trending hashtags calculation"
+			},
+			"response": []
+		},
+		{
+			"name": "create new post contain attachment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "attachment",
+							"type": "file",
+							"src": "/C:/Users/nardiyansah/Downloads/generasi gigih.png"
+						},
+						{
+							"key": "content",
+							"value": "{{$randomPhrase}}",
+							"contentType": "",
+							"type": "text"
+						},
+						{
+							"key": "hashtags[]",
+							"value": "{{$randomNoun}}",
+							"contentType": "",
+							"type": "text"
+						},
+						{
+							"key": "hashtags[]",
+							"value": "{{$randomNoun}}",
+							"contentType": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/user/post/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"post",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{user_id}}"
+						}
+					]
+				},
+				"description": "## Specification\nAs a user, I want to attach things to a post\n\nThree kinds of attachment are allowed: pictures (jpg, png, gif), video (mp4), and file (any other extensions outside of pictures and videos)"
+			},
+			"response": []
+		},
+		{
+			"name": "comment with attachment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "attachment",
+							"type": "file",
+							"src": "/C:/Users/nardiyansah/Downloads/social media.png"
+						},
+						{
+							"key": "content",
+							"value": "{{$randomPhrase}}",
+							"type": "text"
+						},
+						{
+							"key": "hashtags[]",
+							"value": "{{$randomNoun}}",
+							"type": "text"
+						},
+						{
+							"key": "hashtags[]",
+							"value": "{{$randomNoun}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/comment/:user_id/:post_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"comment",
+						":user_id",
+						":post_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "post_id",
+							"value": "{{post_id}}"
+						}
+					]
+				},
+				"description": "## Specification\nAs a user, I want to comment on a post\n\nThree kinds of attachment are allowed: pictures (jpg, png, gif), video (mp4), and file (any other extensions outside of pictures and videos)"
+			},
+			"response": []
+		}
+	]
+}
