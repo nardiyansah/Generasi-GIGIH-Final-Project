@@ -15,7 +15,7 @@ RSpec.describe 'post model' do
         client.query('set foreign_key_checks = 1')
     end
 
-    describe 'create new post' do
+    describe '#save' do
         it 'should create a new post' do
             db_client.query(query_insert_user)
             model = Post.new('new post', nil, 1, db_client)
