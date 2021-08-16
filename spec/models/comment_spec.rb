@@ -12,7 +12,7 @@ RSpec.describe 'comment model' do
         client.query('set foreign_key_checks = 1')
     end
 
-    describe 'save comment' do
+    describe '#save' do
         it 'should save comment' do
             db_client.query("insert into users (username, email) values ('foo', 'fui@mail.com')")
             user_id = db_client.last_id
