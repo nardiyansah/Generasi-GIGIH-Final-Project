@@ -25,7 +25,7 @@ RSpec.describe 'post controller' do
         client.query('set foreign_key_checks = 1')
     end
 
-    describe 'get all post with specific tag' do
+    describe '#get_post_for_hashtag' do
         it 'should return all post for the given tag' do
             db_client.query(query_insert_user)
             db_client.query(query_insert_post)
