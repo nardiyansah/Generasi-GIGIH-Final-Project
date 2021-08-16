@@ -15,41 +15,7 @@ RSpec.describe 'user model' do
         client.query('set foreign_key_checks = 1')
     end
 
-    describe "initialize object class" do
-
-        it 'should has username' do
-            expect(user.username).to eq(username)
-        end
-
-        it 'should has email' do
-            expect(user.email).to eq(email)
-        end
-
-        it 'bio can be nil' do
-            expect(user.bio).to be(nil)
-        end
-
-        it 'can contain bio' do
-            bio = 'onegaishimasu'
-            user = User.new(username, email, bio)
-
-            expect(user.bio).to eq(bio)
-        end
-
-        it 'id can be nil' do
-            expect(user.id).to be(nil)
-        end
-
-        it 'can contain id' do
-            bio = 'onegaishimasu'
-            id = 1
-            user = User.new(username, email, bio, id)
-
-            expect(user.id).to eq(id)
-        end
-    end
-
-    describe "create new user" do
+    describe "#save" do
         
         it 'should save new user account' do
             user_id = user.save
@@ -77,7 +43,7 @@ RSpec.describe 'user model' do
         end
     end
 
-    describe "change data user" do
+    describe "#update" do
         it 'should save new data user with specific id' do
             user.save
             expect(user.username).to eq(username)
