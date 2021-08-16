@@ -6,6 +6,9 @@ require_relative './controllers/hashtagController'
 require_relative './helper/url'
 
 db_client = create_db_client
+user_controller = UserController.new(db_client)
+post_controller = PostController.new(db_client)
+hashtag_controller = HashtagController.new(db_client)
 
 get '/' do
     'Hello world'
@@ -15,7 +18,6 @@ post '/user' do
     begin
         content_type :json
         data = JSON.parse request.body.read
-        user_controller = UserController.new(db_client)
         response = user_controller.create(data)
         response
     rescue => exception
@@ -27,7 +29,6 @@ post '/user/:id' do
     begin
         content_type :json
         data = JSON.parse request.body.read
-        user_controller = UserController.new(db_client)
         response = user_controller.update(params['id'], data)
         response
     rescue => exception
@@ -42,7 +43,6 @@ post '/user/post/:id' do
 
         if attachment.nil?
             data = JSON.parse request.body.read
-            user_controller = UserController.new(db_client)
             response = user_controller.create_post(params['id'], data)
             return response
         else
@@ -57,7 +57,6 @@ post '/user/post/:id' do
                 end
                 file_path = "#{base_url}/#{file_name}"
                 data = {"content" => params[:content], "hashtags" => params[:hashtags], "attachment" => file_path}
-                user_controller = UserController.new(db_client)
                 response = user_controller.create_post(params['id'], data)
                 return response
             end
@@ -71,7 +70,6 @@ get '/posts' do
     begin
         content_type :json
         tag = params[:tag]
-        post_controller = PostController.new(db_client)
         response = post_controller.get_post_for_hashtag(tag)
         response
     rescue => exception
@@ -86,7 +84,6 @@ post '/comment/:user_id/:post_id' do
 
         if attachment.nil?
             data = JSON.parse request.body.read
-            user_controller = UserController.new(db_client)
             response = user_controller.create_comment(params['user_id'], params['post_id'], data)
             return response
         else
@@ -101,7 +98,6 @@ post '/comment/:user_id/:post_id' do
                 end
                 file_path = "#{base_url}/#{file_name}"
                 data = {"content" => params[:content], "hashtags" => params[:hashtags], "attachment" => file_path}
-                user_controller = UserController.new(db_client)
                 response = user_controller.create_comment(params['user_id'], params['post_id'], data)
                 return response
             end
@@ -114,7 +110,6 @@ end
 get '/trending_tags' do
     begin
         content_type :json
-        hashtag_controller = HashtagController.new(db_client)
         response = hashtag_controller.get_trending_tags
         response
     rescue => exception
