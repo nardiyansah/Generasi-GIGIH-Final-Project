@@ -4,7 +4,7 @@
       - name: remove existing app bundle
         command: rm -rf build.tgz
       - name: create application bundle
-        command: tar --exclude-from='./.exclude' -zcvf build.tgz .
+        command: tar --exclude-from='../.exclude' -zcvf build.tgz ../.
       
 
 - name: run in remote server
@@ -20,17 +20,17 @@
             state: directory
       - name: copy builded project to app directory server
         ansible.builtin.copy:
-            src: ./build.tgz
+            src: build.tgz
             dest: "{{ ansible_facts['env']['HOME'] }}/app/build.tgz"
       - name: extract app bundle
         command: >
             tar -xvzf build.tgz
         args:
             chdir: app/
-      # - name: update and upgrade repository cache
-      #   become: yes
-      #   apt:
-      #       update_cache: yes
+      - name: update and upgrade repository cache
+        become: yes
+        apt:
+            update_cache: yes
       - name: install rbenv
         become: yes
         apt: name=rbenv
