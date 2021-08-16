@@ -29,7 +29,7 @@ RSpec.describe 'hashtag controller' do
         client.query('set foreign_key_checks = 1')
     end
 
-    describe 'get trending tags' do
+    describe '#get_trending_tags' do
         it 'should return trending tags with amount from post_hashtags and comment_hashtags with response code 200' do
             db_client.query(query_insert_user)
             db_client.query(query_insert_post)
