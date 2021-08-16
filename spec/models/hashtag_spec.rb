@@ -16,7 +16,7 @@ RSpec.describe 'hashtag model' do
         client.query('set foreign_key_checks = 1')
     end
     
-    describe 'save hashtags' do
+    describe '#save' do
         it 'should should save one hashtag' do
             hashtag = ['ame']
             model = Hashtag.new(hashtag, db_client)
@@ -37,7 +37,7 @@ RSpec.describe 'hashtag model' do
         end
     end
 
-    describe 'get trending hashtags' do
+    describe '#get_trending' do
         it 'should return 5 top trending hashtags' do
             db_client.query("insert into users (username, email) values ('foo', 'foo@mail.com')")
             user_id = db_client.last_id
