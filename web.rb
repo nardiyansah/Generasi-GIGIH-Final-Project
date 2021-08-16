@@ -47,11 +47,13 @@ post '/user/post/:id' do
             return response
         else
             accepted_formats = [".jpg", ".png", ".gif", ".mp4"]
+            not_accepted_formats = [".tiff", ".psd", ".eps", ".ai", ".indd", ".raw", ".webm", ".mkv", ".flv", ".vob", ".ogv", ".ogg", ".drc", ".gifv", ".mng", ".avimts", ".m2ts", ".ts", ".wmv", ".yuv", ".rm", ".rmvb", ".viv", ".asf", ".amv", ".mpg", ".mp2", ".mpeg", ".svi", ".3gp", ".3g2", ".mxf", ".roq", ".nsv"]
             file_name = File.basename(attachment[:tempfile])
             tempfile = attachment[:tempfile]
-            is_accepted = accepted_formats.include? File.extname(file_name)
-            
-            if is_accepted
+            is_accepted_format = accepted_formats.include? File.extname(file_name)
+            is_not_accepted_format = not_accepted_formats.include? File.extname(file_name)
+
+            if is_accepted_format || !is_not_accepted_format
                 File.open("./public/#{file_name}", 'wb') do |f|
                     f.write(tempfile.read)
                 end
@@ -59,10 +61,12 @@ post '/user/post/:id' do
                 data = {"content" => params[:content], "hashtags" => params[:hashtags], "attachment" => file_path}
                 response = user_controller.create_post(params['id'], data)
                 return response
+            else
+                return [400, {message: "file you want to send is not accepted format"}.to_json]
             end
         end
     rescue => exception
-        return [400, {message: 'bad request, maybe you forget to provide the file'}.to_json]
+        return [400, {message: 'bad request, maybe you forget to provide the file', error: exception}.to_json]
     end
 end
 
@@ -88,11 +92,13 @@ post '/comment/:user_id/:post_id' do
             return response
         else
             accepted_formats = [".jpg", ".png", ".gif", ".mp4"]
+            not_accepted_formats = [".tiff", ".psd", ".eps", ".ai", ".indd", ".raw", ".webm", ".mkv", ".flv", ".vob", ".ogv", ".ogg", ".drc", ".gifv", ".mng", ".avimts", ".m2ts", ".ts", ".wmv", ".yuv", ".rm", ".rmvb", ".viv", ".asf", ".amv", ".mpg", ".mp2", ".mpeg", ".svi", ".3gp", ".3g2", ".mxf", ".roq", ".nsv"]
             file_name = File.basename(attachment[:tempfile])
             tempfile = attachment[:tempfile]
-            is_accepted = accepted_formats.include? File.extname(file_name)
+            is_accepted_format = accepted_formats.include? File.extname(file_name)
+            is_not_accepted_format = not_accepted_formats.include? File.extname(file_name)
             
-            if is_accepted
+            if is_accepted_format || !is_not_accepted_format
                 File.open("./public/#{file_name}", 'wb') do |f|
                     f.write(tempfile.read)
                 end
@@ -100,10 +106,12 @@ post '/comment/:user_id/:post_id' do
                 data = {"content" => params[:content], "hashtags" => params[:hashtags], "attachment" => file_path}
                 response = user_controller.create_comment(params['user_id'], params['post_id'], data)
                 return response
+            else
+                return [400, {message: "file you want to send is not accepted format"}.to_json]
             end
         end
     rescue => exception
-        return [400, {message: 'bad request, maybe you forget to provide the file'}.to_json]
+        return [400, {message: 'bad request, maybe you forget to provide the file', error: exception}.to_json]
     end
 end
 
