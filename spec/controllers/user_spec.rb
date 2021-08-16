@@ -17,16 +17,7 @@ RSpec.describe 'user controller' do
         client.query('set foreign_key_checks = 1')
     end
 
-    describe 'initialize controller' do
-        it 'should contain db client that will be pass to model' do
-            controller = UserController.new(db_client)
-
-            expect(controller.db_client).to_not be_nil
-            expect(controller.db_client).to be_an_instance_of(Mysql2::Client)
-        end
-    end
-
-    describe 'create new account' do
+    describe '#save' do
         it 'should create account' do
             data = {"username" => "foo", "email" => "foo@mail.com"}
             controller = UserController.new(db_client)
@@ -64,7 +55,7 @@ RSpec.describe 'user controller' do
         end
     end
 
-    describe 'update data account' do
+    describe '#update' do
         it 'should change data account with specific id' do
             data = {"username" => "foo", "email" => "foo@mail.com"}
             controller = UserController.new(db_client)
@@ -87,7 +78,7 @@ RSpec.describe 'user controller' do
         end
     end
 
-    describe 'user create post without hashtag' do
+    describe '#create_post' do
         it 'should create post with specific user id' do
             content = {'content' => 'my first post'}
             controller = UserController.new(db_client)
@@ -110,9 +101,7 @@ RSpec.describe 'user controller' do
                 }.to_json
             ])
         end
-    end
 
-    describe 'user create post with hashtag' do
         it 'should create post with one hashtag' do
             content = {'content' => 'my first post', 'hashtags' => ['ame']}
             controller = UserController.new(db_client)
@@ -137,7 +126,7 @@ RSpec.describe 'user controller' do
         end
     end
 
-    describe 'user comment on post' do
+    describe '#create_comment' do
         it 'should create comment with specific id' do
             content = {'content' => 'my first comment'}
             controller = UserController.new(db_client)
@@ -162,9 +151,7 @@ RSpec.describe 'user controller' do
                 }.to_json
             ])
         end
-    end
 
-    describe 'user create comment with hashtag' do
         it 'should create comment with one hashtag' do
             content = {'content' => 'my first comment', 'hashtags' => ['ame']}
             controller = UserController.new(db_client)
