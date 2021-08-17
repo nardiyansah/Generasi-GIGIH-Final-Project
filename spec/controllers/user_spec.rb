@@ -17,7 +17,7 @@ RSpec.describe 'user controller' do
         client.query('set foreign_key_checks = 1')
     end
 
-    describe '#save' do
+    describe '#create' do
         it 'should create account' do
             data = {"username" => "foo", "email" => "foo@mail.com"}
             controller = UserController.new(db_client)
