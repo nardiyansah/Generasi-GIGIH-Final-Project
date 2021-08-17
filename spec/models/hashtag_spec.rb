@@ -35,6 +35,16 @@ RSpec.describe 'hashtag model' do
             expect(stored_hashtag[0]['tag']).to eq('ame')
             expect(stored_hashtag[1]['tag']).to eq('agari')
         end
+
+        it 'should save one hashtags because there is empty string' do
+            hashtag = ['ame', '']
+            model = Hashtag.new(hashtag, db_client)
+
+            stored_hashtag = model.save
+
+            expect(stored_hashtag[0]['tag']).to eq('ame')
+            expect(stored_hashtag[1]).to be_nil
+        end
     end
 
     describe '#get_trending' do
