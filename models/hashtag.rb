@@ -4,12 +4,18 @@ class Hashtag
         @db_client = db_client
     end
 
-    def save
-        unless @hashtags.nil?
-            if @hashtags.empty?
-                return []
+    def valid_form?
+        if @hashtags.instance_of? Array
+            if !@hashtags.empty?
+                return true
             end
-            data = []
+        end
+        false
+    end
+
+    def save
+        data = []
+        if valid_form?
             uniq_hashtags = @hashtags.map(&:downcase).uniq
             uniq_hashtags.each do |tag|
                 unless tag.empty?
@@ -19,9 +25,8 @@ class Hashtag
                     data.append(temp)
                 end
             end
-            return data
         end
-        return []
+        data
     end
 
     def self.get_trending(db_client)
