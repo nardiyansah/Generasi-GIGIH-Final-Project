@@ -5,7 +5,8 @@ def create_db_client
         :host => ENV["DB_HOST"],
         :username => ENV["DB_USER"],
         :password => ENV["DB_PASS"],
-        :database => ENV["DB_NAME"]
+        :database => ENV["DB_NAME"],
+        :reconnect => true
     )
     client
 end
