@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User
   attr_accessor :username, :email, :bio
   attr_reader :id
