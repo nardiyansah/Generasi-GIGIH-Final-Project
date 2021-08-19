@@ -59,22 +59,22 @@ RSpec.describe 'hashtag model' do
       comment_id = db_client.last_id
 
       db_client.query("insert into hashtags (tag, amount) values ('ame', 1) on duplicate key update amount = values(amount) + 1")
-      tag_1 = db_client.last_id
+      tag1 = db_client.last_id
 
       db_client.query("insert into hashtags (tag, amount) values ('agari', 1) on duplicate key update amount = values(amount) + 1")
-      tag_2 = db_client.last_id
+      tag2 = db_client.last_id
 
       i = 0
       until i > 5
         db_client.query("insert into hashtags (tag, amount) values ('ame', 1) on duplicate key update amount = values(amount) + 1")
-        db_client.query("insert into post_hashtags (post_id, hashtag_id) values (#{post_id}, #{tag_1})")
+        db_client.query("insert into post_hashtags (post_id, hashtag_id) values (#{post_id}, #{tag1})")
         i += 1
       end
 
       i = 0
       until i > 3
         db_client.query("insert into hashtags (tag, amount) values ('agari', 1) on duplicate key update amount = values(amount) + 1")
-        db_client.query("insert into comment_hashtags (comment_id, hashtag_id) values (#{comment_id}, #{tag_2})")
+        db_client.query("insert into comment_hashtags (comment_id, hashtag_id) values (#{comment_id}, #{tag2})")
         i += 1
       end
 
