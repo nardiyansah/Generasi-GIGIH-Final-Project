@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../controllers/userController'
 require_relative '../../db_connector'
 require 'mysql2'
