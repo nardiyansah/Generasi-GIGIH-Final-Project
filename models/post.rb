@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# class to manipulate data in table posts
 class Post
   def initialize(content, attachment = nil, user_id, db_client)
     @content = content

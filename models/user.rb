@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# class to manipulate data in table users
 class User
   attr_accessor :username, :email, :bio
   attr_reader :id
