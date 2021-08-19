@@ -82,8 +82,6 @@ post '/comment/:user_id/:post_id' do
 
   if attachment.nil?
     data = JSON.parse request.body.read
-    response = user_controller.create_comment(params['user_id'], params['post_id'], data)
-    return response
   else
     accepted_formats = ['.jpg', '.png', '.gif', '.mp4']
     not_accepted_formats = ['.tiff', '.psd', '.eps', '.ai', '.indd', '.raw', '.webm', '.mkv', '.flv', '.vob',
@@ -96,14 +94,15 @@ post '/comment/:user_id/:post_id' do
     unless is_accepted_format || !is_not_accepted_format
       return [400, { message: 'file you want to send is not accepted format' }.to_json]
     end
+
     File.open("./public/#{file_name}", 'wb') do |f|
       f.write(tempfile.read)
     end
     file_path = "#{base_url}/#{file_name}"
     data = { 'content' => params[:content], 'hashtags' => params[:hashtags], 'attachment' => file_path }
-    response = user_controller.create_comment(params['user_id'], params['post_id'], data)
-    return response
   end
+  response = user_controller.create_comment(params['user_id'], params['post_id'], data)
+  return response
 rescue StandardError => e
   return [400, { message: 'bad request, maybe you forget to provide the file', error: e }.to_json]
 end
