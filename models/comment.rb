@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comment
   def initialize(comment, attachment = nil, post_id, user_id, db_client)
     @comment = comment
