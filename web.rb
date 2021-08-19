@@ -12,6 +12,10 @@ user_controller = UserController.new(db_client)
 post_controller = PostController.new(db_client)
 hashtag_controller = HashtagController.new(db_client)
 
+accepted_formats = ['.jpg', '.png', '.gif', '.mp4']
+not_accepted_formats = ['.tiff', '.psd', '.eps', '.ai', '.indd', '.raw', '.webm', '.mkv', '.flv', '.vob', '.ogv',
+                        '.ogg', '.drc', '.gifv', '.mng', '.avimts', '.m2ts', '.ts', '.wmv', '.yuv', '.rm', '.rmvb', '.viv', '.asf', '.amv', '.mpg', '.mp2', '.mpeg', '.svi', '.3gp', '.3g2', '.mxf', '.roq', '.nsv']
+
 get '/' do
   'Hello world'
 end
@@ -43,9 +47,6 @@ post '/user/post/:id' do
     response = user_controller.create_post(params['id'], data)
     return response
   else
-    accepted_formats = ['.jpg', '.png', '.gif', '.mp4']
-    not_accepted_formats = ['.tiff', '.psd', '.eps', '.ai', '.indd', '.raw', '.webm', '.mkv', '.flv', '.vob',
-                            '.ogv', '.ogg', '.drc', '.gifv', '.mng', '.avimts', '.m2ts', '.ts', '.wmv', '.yuv', '.rm', '.rmvb', '.viv', '.asf', '.amv', '.mpg', '.mp2', '.mpeg', '.svi', '.3gp', '.3g2', '.mxf', '.roq', '.nsv']
     file_name = File.basename(attachment[:tempfile])
     tempfile = attachment[:tempfile]
     is_accepted_format = accepted_formats.include? File.extname(file_name)
@@ -83,9 +84,6 @@ post '/comment/:user_id/:post_id' do
   if attachment.nil?
     data = JSON.parse request.body.read
   else
-    accepted_formats = ['.jpg', '.png', '.gif', '.mp4']
-    not_accepted_formats = ['.tiff', '.psd', '.eps', '.ai', '.indd', '.raw', '.webm', '.mkv', '.flv', '.vob',
-                            '.ogv', '.ogg', '.drc', '.gifv', '.mng', '.avimts', '.m2ts', '.ts', '.wmv', '.yuv', '.rm', '.rmvb', '.viv', '.asf', '.amv', '.mpg', '.mp2', '.mpeg', '.svi', '.3gp', '.3g2', '.mxf', '.roq', '.nsv']
     file_name = File.basename(attachment[:tempfile])
     tempfile = attachment[:tempfile]
     is_accepted_format = accepted_formats.include? File.extname(file_name)
