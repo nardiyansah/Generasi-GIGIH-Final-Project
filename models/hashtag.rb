@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hashtag
   def initialize(hashtags, db_client)
     @hashtags = hashtags
