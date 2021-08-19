@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../models/user'
 require_relative '../models/post'
 require_relative '../models/comment'
@@ -24,7 +26,7 @@ class UserController
     model = User.new(username, email, bio, nil, @db_client)
     created_id = model.save
 
-    return [406, "can't save data, maybe the data is already exist"] if created_id == 0
+    return [406, "can't save data, maybe the data is already exist"] if created_id.zero?
 
     [201, { message: 'new account is created', id: created_id }.to_json]
   end
@@ -53,13 +55,12 @@ class UserController
     data_post = nil
 
     # process the attachment
-    if attachment.nil?
-      post = Post.new(content, nil, user_id, @db_client)
-      data_post = post.save
-    else
-      post = Post.new(content, attachment, user_id, @db_client)
-      data_post = post.save
-    end
+    post = if attachment.nil?
+             Post.new(content, nil, user_id, @db_client)
+           else
+             Post.new(content, attachment, user_id, @db_client)
+           end
+    data_post = post.save
 
     user_name = @db_client.query("SELECT username FROM users WHERE id = #{user_id}").each[0]['username']
 
@@ -94,13 +95,12 @@ class UserController
     data_comment = nil
 
     # process the attachment
-    if attachment.nil?
-      comment = Comment.new(content, nil, post_id, user_id, @db_client)
-      data_comment = comment.save
-    else
-      comment = Comment.new(content, attachment, post_id, user_id, @db_client)
-      data_comment = comment.save
-    end
+    comment = if attachment.nil?
+                Comment.new(content, nil, post_id, user_id, @db_client)
+              else
+                Comment.new(content, attachment, post_id, user_id, @db_client)
+              end
+    data_comment = comment.save
 
     user_name = @db_client.query("SELECT username FROM users WHERE id = #{user_id}").each[0]['username']
 
