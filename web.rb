@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require_relative './db_connector'
 require_relative './controllers/userController'
