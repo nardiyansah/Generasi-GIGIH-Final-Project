@@ -36,7 +36,7 @@ RSpec.describe 'user model' do
     end
 
     it 'should not store data user if already exist in database' do
-      first_insert = user.save
+      user.save
       second_insert = user.save
 
       # id zero mean  can't insert to database, based on email
