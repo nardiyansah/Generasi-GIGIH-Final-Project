@@ -16,7 +16,7 @@ class User
     begin
       @db_client.query("INSERT INTO users (username, email, bio) VALUES ('#{@username}', '#{@email}', '#{@bio}')")
       @id = @db_client.last_id
-    rescue StandardError => e
+    rescue StandardError
       @id = 0
     end
     @id
@@ -26,7 +26,7 @@ class User
     begin
       @db_client.query("UPDATE users SET username = \"#{@db_client.escape(@username)}\", bio = \"#{@db_client.escape(@bio)}\" WHERE id = #{@id}")
       client_id = @id
-    rescue StandardError => e
+    rescue StandardError
       client_id = 0
     end
     client_id
