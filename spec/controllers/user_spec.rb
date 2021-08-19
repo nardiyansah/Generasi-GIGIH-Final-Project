@@ -7,7 +7,7 @@ require 'mysql2'
 RSpec.describe 'user controller' do
   db_client = create_db_client
 
-  before(:each) do
+  before do
     client = create_db_client
     client.query('set foreign_key_checks = 0')
     client.query('truncate users')
@@ -20,7 +20,7 @@ RSpec.describe 'user controller' do
   end
 
   describe '#create' do
-    it 'should create account' do
+    it 'creates account' do
       data = { 'username' => 'foo', 'email' => 'foo@mail.com' }
       controller = UserController.new(db_client)
 
@@ -33,7 +33,7 @@ RSpec.describe 'user controller' do
       expect(stored_data['email']).to eq(data['email'])
     end
 
-    it 'should cannot create acount with same email' do
+    it 'cannots create acount with same email' do
       data = { 'username' => 'foo', 'email' => 'foo@mail.com' }
       controller = UserController.new(db_client)
 
@@ -43,7 +43,7 @@ RSpec.describe 'user controller' do
       expect(status).to eq([406, "can't save data, maybe the data is already exist"])
     end
 
-    it 'should not accept request withoud data' do
+    it 'does not accept request withoud data' do
       controller = UserController.new(db_client)
 
       status = controller.create(nil)
@@ -58,7 +58,7 @@ RSpec.describe 'user controller' do
   end
 
   describe '#update' do
-    it 'should change data account with specific id' do
+    it 'changes data account with specific id' do
       data = { 'username' => 'foo', 'email' => 'foo@mail.com' }
       controller = UserController.new(db_client)
 
@@ -81,7 +81,7 @@ RSpec.describe 'user controller' do
   end
 
   describe '#create_post' do
-    it 'should create post with specific user id' do
+    it 'creates post with specific user id' do
       content = { 'content' => 'my first post' }
       controller = UserController.new(db_client)
 
@@ -104,7 +104,7 @@ RSpec.describe 'user controller' do
                          ])
     end
 
-    it 'should create post with one hashtag' do
+    it 'creates post with one hashtag' do
       content = { 'content' => 'my first post', 'hashtags' => ['ame'] }
       controller = UserController.new(db_client)
 
@@ -129,7 +129,7 @@ RSpec.describe 'user controller' do
   end
 
   describe '#create_comment' do
-    it 'should create comment with specific id' do
+    it 'creates comment with specific id' do
       content = { 'content' => 'my first comment' }
       controller = UserController.new(db_client)
 
@@ -154,7 +154,7 @@ RSpec.describe 'user controller' do
                          ])
     end
 
-    it 'should create comment with one hashtag' do
+    it 'creates comment with one hashtag' do
       content = { 'content' => 'my first comment', 'hashtags' => ['ame'] }
       controller = UserController.new(db_client)
 

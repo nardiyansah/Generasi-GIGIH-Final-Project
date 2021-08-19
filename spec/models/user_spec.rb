@@ -10,7 +10,7 @@ RSpec.describe 'user model' do
 
   user = User.new(username, email, nil, nil, db_client)
 
-  before(:each) do
+  before do
     client = create_db_client
     client.query('set foreign_key_checks = 0')
     client.query('truncate users')
@@ -18,13 +18,13 @@ RSpec.describe 'user model' do
   end
 
   describe '#save' do
-    it 'should save new user account' do
+    it 'saves new user account' do
       user_id = user.save
 
       expect(user_id).to eq(user.id)
     end
 
-    it 'should store bio if registered with bio' do
+    it 'stores bio if registered with bio' do
       bio = 'I am foo'
 
       user = User.new(username, email, bio, nil, db_client)
@@ -35,7 +35,7 @@ RSpec.describe 'user model' do
       expect(stored_bio).to eq(bio)
     end
 
-    it 'should not store data user if already exist in database' do
+    it 'does not store data user if already exist in database' do
       user.save
       second_insert = user.save
 
@@ -45,7 +45,7 @@ RSpec.describe 'user model' do
   end
 
   describe '#update' do
-    it 'should save new data user with specific id' do
+    it 'saves new data user with specific id' do
       user.save
       expect(user.username).to eq(username)
 

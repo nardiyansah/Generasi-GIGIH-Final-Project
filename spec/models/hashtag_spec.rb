@@ -6,7 +6,7 @@ require_relative '../../db_connector'
 RSpec.describe 'hashtag model' do
   db_client = create_db_client
 
-  before(:each) do
+  before do
     client = create_db_client
     client.query('set foreign_key_checks = 0')
     client.query('truncate hashtags')
@@ -19,7 +19,7 @@ RSpec.describe 'hashtag model' do
   end
 
   describe '#save' do
-    it 'should should save one hashtag' do
+    it 'shoulds save one hashtag' do
       hashtag = ['ame']
       model = Hashtag.new(hashtag, db_client)
 
@@ -28,7 +28,7 @@ RSpec.describe 'hashtag model' do
       expect(stored_hashtag[0]['tag']).to eq('ame')
     end
 
-    it 'should save two hashtag' do
+    it 'saves two hashtag' do
       hashtag = %w[ame agari]
       model = Hashtag.new(hashtag, db_client)
 
@@ -38,7 +38,7 @@ RSpec.describe 'hashtag model' do
       expect(stored_hashtag[1]['tag']).to eq('agari')
     end
 
-    it 'should save one hashtags because there is empty string' do
+    it 'saves one hashtags because there is empty string' do
       hashtag = ['ame', '']
       model = Hashtag.new(hashtag, db_client)
 
@@ -50,7 +50,7 @@ RSpec.describe 'hashtag model' do
   end
 
   describe '#get_trending' do
-    it 'should return 5 top trending hashtags' do
+    it 'returns 5 top trending hashtags' do
       db_client.query("insert into users (username, email) values ('foo', 'foo@mail.com')")
       user_id = db_client.last_id
       db_client.query("insert into posts (content, user_id) values ('this is post', #{user_id})")

@@ -6,7 +6,7 @@ require_relative '../../db_connector'
 RSpec.describe 'comment model' do
   db_client = create_db_client
 
-  before(:each) do
+  before do
     client = create_db_client
     client.query('set foreign_key_checks = 0')
     client.query('truncate comments')
@@ -15,7 +15,7 @@ RSpec.describe 'comment model' do
   end
 
   describe '#save' do
-    it 'should save comment' do
+    it 'saves comment' do
       db_client.query("insert into users (username, email) values ('foo', 'fui@mail.com')")
       user_id = db_client.last_id
       db_client.query("insert into posts (content, user_id) values ('hello', #{user_id})")

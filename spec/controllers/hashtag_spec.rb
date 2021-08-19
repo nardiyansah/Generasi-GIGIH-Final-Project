@@ -18,7 +18,7 @@ RSpec.describe 'hashtag controller' do
   query_post_hashtag = 'insert into post_hashtags (post_id, hashtag_id) values (1, 1)'
   query_comment_hashtag = 'insert into comment_hashtags (comment_id, hashtag_id) values (1, 1)'
 
-  before(:each) do
+  before do
     client = create_db_client
     client.query('set foreign_key_checks = 0')
     client.query('truncate users')
@@ -31,7 +31,7 @@ RSpec.describe 'hashtag controller' do
   end
 
   describe '#get_trending_tags' do
-    it 'should return trending tags with amount from post_hashtags and comment_hashtags with response code 200' do
+    it 'returns trending tags with amount from post_hashtags and comment_hashtags with response code 200' do
       db_client.query(query_insert_user)
       db_client.query(query_insert_post)
       db_client.query(query_insert_hashtag)

@@ -16,7 +16,7 @@ RSpec.describe 'post controller' do
   query_insert_hashtag = "insert into hashtags (tag, amount) values ('#{tag}', 1)"
   query_post_hashtag = 'insert into post_hashtags (post_id, hashtag_id) values (1, 1)'
 
-  before(:each) do
+  before do
     client = create_db_client
     client.query('set foreign_key_checks = 0')
     client.query('truncate users')
@@ -27,7 +27,7 @@ RSpec.describe 'post controller' do
   end
 
   describe '#get_post_for_hashtag' do
-    it 'should return all post for the given tag' do
+    it 'returns all post for the given tag' do
       db_client.query(query_insert_user)
       db_client.query(query_insert_post)
       db_client.query(query_insert_hashtag)
