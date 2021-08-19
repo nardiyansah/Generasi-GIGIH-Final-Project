@@ -12,9 +12,20 @@ user_controller = UserController.new(db_client)
 post_controller = PostController.new(db_client)
 hashtag_controller = HashtagController.new(db_client)
 
-accepted_formats = ['.jpg', '.png', '.gif', '.mp4']
-not_accepted_formats = ['.tiff', '.psd', '.eps', '.ai', '.indd', '.raw', '.webm', '.mkv', '.flv', '.vob', '.ogv',
-                        '.ogg', '.drc', '.gifv', '.mng', '.avimts', '.m2ts', '.ts', '.wmv', '.yuv', '.rm', '.rmvb', '.viv', '.asf', '.amv', '.mpg', '.mp2', '.mpeg', '.svi', '.3gp', '.3g2', '.mxf', '.roq', '.nsv']
+accepted_formats = [
+  '.jpg', '.png', '.gif', '.mp4'
+]
+not_accepted_formats = [
+  '.tiff', '.psd', '.eps', '.ai',
+  '.indd', '.raw', '.webm', '.mkv',
+  '.flv', '.vob', '.ogv', '.ogg',
+  '.drc', '.gifv', '.mng', '.avimts',
+  '.m2ts', '.ts', '.wmv', '.yuv',
+  '.rm', '.rmvb', '.viv', '.asf',
+  '.amv', '.mpg', '.mp2', '.mpeg',
+  '.svi', '.3gp', '.3g2', '.mxf',
+  '.roq', '.nsv'
+]
 
 get '/' do
   'Hello world'
