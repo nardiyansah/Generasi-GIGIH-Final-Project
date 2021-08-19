@@ -44,26 +44,24 @@ post '/user/post/:id' do
 
   if attachment.nil?
     data = JSON.parse request.body.read
-    response = user_controller.create_post(params['id'], data)
-    return response
   else
     file_name = File.basename(attachment[:tempfile])
     tempfile = attachment[:tempfile]
     is_accepted_format = accepted_formats.include? File.extname(file_name)
     is_not_accepted_format = not_accepted_formats.include? File.extname(file_name)
 
-    if is_accepted_format || !is_not_accepted_format
-      File.open("./public/#{file_name}", 'wb') do |f|
-        f.write(tempfile.read)
-      end
-      file_path = "#{base_url}/#{file_name}"
-      data = { 'content' => params[:content], 'hashtags' => params[:hashtags], 'attachment' => file_path }
-      response = user_controller.create_post(params['id'], data)
-      return response
-    else
+    unless is_accepted_format || !is_not_accepted_format
       return [400, { message: 'file you want to send is not accepted format' }.to_json]
     end
+
+    File.open("./public/#{file_name}", 'wb') do |f|
+      f.write(tempfile.read)
+    end
+    file_path = "#{base_url}/#{file_name}"
+    data = { 'content' => params[:content], 'hashtags' => params[:hashtags], 'attachment' => file_path }
   end
+  response = user_controller.create_post(params['id'], data)
+  return response
 rescue StandardError => e
   return [400, { message: 'bad request, maybe you forget to provide the file', error: e }.to_json]
 end
