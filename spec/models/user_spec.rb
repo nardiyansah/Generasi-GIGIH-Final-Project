@@ -45,10 +45,8 @@ RSpec.describe 'user model' do
   end
 
   describe '#update' do
-    it 'saves new data user with specific id' do
+    it 'update user with specific id' do
       user.save
-      expect(user.username).to eq(username)
-
       user.username = 'papa'
       user.update
       stored_username = db_client.query("SELECT username FROM users WHERE id = #{user.id}").each[0]['username']
