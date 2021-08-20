@@ -3,12 +3,12 @@
 require_relative '../../models/user'
 require_relative '../../db_connector'
 
-RSpec.describe 'user model' do
+RSpec.describe User do
   db_client = create_db_client
   username = 'foo'
   email = 'foo@mail.com'
 
-  user = User.new(username, email, nil, nil, db_client)
+  user = described_class.new(username, email, nil, nil, db_client)
 
   before do
     client = create_db_client
@@ -27,7 +27,7 @@ RSpec.describe 'user model' do
     it 'stores bio if registered with bio' do
       bio = 'I am foo'
 
-      user = User.new(username, email, bio, nil, db_client)
+      user = described_class.new(username, email, bio, nil, db_client)
       user_id = user.save
 
       stored_bio = db_client.query("SELECT bio FROM users WHERE id = #{user_id}").each[0]['bio']
