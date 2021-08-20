@@ -3,7 +3,7 @@
 require_relative '../../models/hashtag'
 require_relative '../../db_connector'
 
-RSpec.describe 'hashtag model' do
+RSpec.describe Hashtag do
   db_client = create_db_client
 
   before do
@@ -21,7 +21,7 @@ RSpec.describe 'hashtag model' do
   describe '#save' do
     it 'shoulds save one hashtag' do
       hashtag = ['ame']
-      model = Hashtag.new(hashtag, db_client)
+      model = described_class.new(hashtag, db_client)
 
       stored_hashtag = model.save
 
@@ -30,7 +30,7 @@ RSpec.describe 'hashtag model' do
 
     it 'saves two hashtag' do
       hashtag = %w[ame agari]
-      model = Hashtag.new(hashtag, db_client)
+      model = described_class.new(hashtag, db_client)
 
       stored_hashtag = model.save
 
@@ -42,7 +42,7 @@ RSpec.describe 'hashtag model' do
 
     it 'saves one hashtags because there is empty string' do
       hashtag = ['ame', '']
-      model = Hashtag.new(hashtag, db_client)
+      model = described_class.new(hashtag, db_client)
 
       stored_hashtag = model.save
 
@@ -79,7 +79,7 @@ RSpec.describe 'hashtag model' do
         i += 1
       end
 
-      trending_tag = Hashtag.get_trending(db_client)
+      trending_tag = described_class.get_trending(db_client)
 
       expect(trending_tag[0]).to eq({ 'hashtag_id' => 1, 'tag' => 'ame', 'amount' => 6 })
     end
