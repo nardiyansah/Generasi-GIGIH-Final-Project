@@ -34,8 +34,10 @@ RSpec.describe 'hashtag model' do
 
       stored_hashtag = model.save
 
-      expect(stored_hashtag[0]['tag']).to eq('ame')
-      expect(stored_hashtag[1]['tag']).to eq('agari')
+      expect(stored_hashtag).to eq([
+                                     { 'amount' => 1, 'id' => 1, 'tag' => 'ame' },
+                                     { 'amount' => 1, 'id' => 2, 'tag' => 'agari' }
+                                   ])
     end
 
     it 'saves one hashtags because there is empty string' do
