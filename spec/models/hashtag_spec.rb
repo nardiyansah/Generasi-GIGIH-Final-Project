@@ -80,11 +80,7 @@ RSpec.describe 'hashtag model' do
 
       trending_tag = Hashtag.get_trending(db_client)
 
-      expect(trending_tag[0]['tag']).to eq('ame')
-      expect(trending_tag[0]['amount']).to eq(6)
-
-      expect(trending_tag[1]['tag']).to eq('agari')
-      expect(trending_tag[1]['amount']).to eq(4)
+      expect(trending_tag[0]).to eq({ 'hashtag_id' => 1, 'tag' => 'ame', 'amount' => 6 })
     end
   end
 end
