@@ -23,8 +23,7 @@ RSpec.describe 'post model' do
       model = Post.new('new post', nil, 1, db_client)
       data = model.save
 
-      expect(data['id']).to eq(1)
-      expect(data['content']).to eq('new post')
+      expect(data).to eq({ 'id' => 1, 'content' => 'new post', 'attachment' => '', 'user_id' => 1 })
     end
 
     it 'creates a new post with attachment' do
