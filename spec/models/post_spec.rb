@@ -3,7 +3,7 @@
 require_relative '../../models/post'
 require_relative '../../db_connector'
 
-RSpec.describe 'post model' do
+RSpec.describe Post do
   db_client = create_db_client
   query_insert_user = "INSERT INTO users (username, email, bio) VALUES ('foo', 'foo@mail.com', 'i am foo')"
 
@@ -20,7 +20,7 @@ RSpec.describe 'post model' do
   describe '#save' do
     it 'creates a new post' do
       db_client.query(query_insert_user)
-      model = Post.new('new post', nil, 1, db_client)
+      model = described_class.new('new post', nil, 1, db_client)
       data = model.save
 
       expect(data).to eq({ 'id' => 1, 'content' => 'new post', 'attachment' => '', 'user_id' => 1 })
@@ -28,7 +28,7 @@ RSpec.describe 'post model' do
 
     it 'creates a new post with attachment' do
       db_client.query(query_insert_user)
-      model = Post.new('new post', 'test.txt', 1, db_client)
+      model = described_class.new('new post', 'test.txt', 1, db_client)
 
       data = model.save
 
