@@ -44,8 +44,7 @@ RSpec.describe 'hashtag model' do
 
       stored_hashtag = model.save
 
-      expect(stored_hashtag[0]['tag']).to eq('ame')
-      expect(stored_hashtag[1]).to be_nil
+      expect(stored_hashtag[0]).to eq({ 'amount' => 1, 'id' => 1, 'tag' => 'ame' })
     end
   end
 
