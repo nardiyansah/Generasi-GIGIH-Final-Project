@@ -3,7 +3,7 @@
 require_relative '../../controllers/hashtagController'
 require_relative '../../db_connector'
 
-RSpec.describe 'hashtag controller' do
+RSpec.describe HashtagController do
   db_client = create_db_client
   username = 'foo'
   email = 'foo@mail.com'
@@ -39,7 +39,7 @@ RSpec.describe 'hashtag controller' do
       db_client.query(query_post_hashtag)
       db_client.query(query_comment_hashtag)
 
-      hashtag_controller = HashtagController.new(db_client)
+      hashtag_controller = described_class.new(db_client)
       trending_tag = hashtag_controller.get_trending_tags
 
       expect(trending_tag[0]).to eq(200)
