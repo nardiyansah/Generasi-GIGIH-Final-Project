@@ -29,8 +29,7 @@ RSpec.describe 'user controller' do
 
       stored_data = db_client.query("SELECT * FROM users WHERE id = #{id}").each[0]
 
-      expect(stored_data['username']).to eq(data['username'])
-      expect(stored_data['email']).to eq(data['email'])
+      expect(stored_data).to eq({ 'id' => 1, 'username' => 'foo', 'email' => 'foo@mail.com', 'bio' => '' })
     end
 
     it 'cannots create acount with same email' do
