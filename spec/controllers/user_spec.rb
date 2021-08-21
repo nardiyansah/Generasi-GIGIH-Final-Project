@@ -48,12 +48,6 @@ RSpec.describe 'user controller' do
 
       status = controller.create(nil)
       expect(status).to eq([400, 'missing data. please sure you already give username and email'])
-
-      status = controller.create({ 'username' => '' })
-      expect(status).to eq([400, 'missing data. please sure you already give username and email'])
-
-      status = controller.create({ 'username' => '', 'email' => 'foo@mail.com' })
-      expect(status).to eq([400, 'missing data. please sure you already give username and email'])
     end
   end
 
