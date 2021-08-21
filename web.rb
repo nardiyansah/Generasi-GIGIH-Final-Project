@@ -2,9 +2,9 @@
 
 require 'sinatra'
 require_relative './db_connector'
-require_relative './controllers/userController'
-require_relative './controllers/postController'
-require_relative './controllers/hashtagController'
+require_relative './controllers/user_controller'
+require_relative './controllers/post_controller'
+require_relative './controllers/hashtag_controller'
 require_relative './helper/url'
 
 db_client = create_db_client
