@@ -26,8 +26,13 @@ RSpec.describe 'comment model' do
 
       data = comment.save
 
-      expect(data['id']).to eq(1)
-      expect(data['content']).to eq(content_comment)
+      expect(data).to eq({
+                           'id' => 1,
+                           'content' => content_comment,
+                           'attachment' => '',
+                           'post_id' => 2,
+                           'user_id' => 1
+                         })
     end
   end
 end
