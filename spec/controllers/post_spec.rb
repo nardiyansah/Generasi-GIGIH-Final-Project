@@ -3,7 +3,7 @@
 require_relative '../../controllers/postController'
 require_relative '../../db_connector'
 
-RSpec.describe 'post controller' do
+RSpec.describe PostController do
   db_client = create_db_client
   username = 'foo'
   email = 'foo@mail.com'
@@ -33,7 +33,7 @@ RSpec.describe 'post controller' do
       db_client.query(query_insert_hashtag)
       db_client.query(query_post_hashtag)
 
-      post_controller = PostController.new(db_client)
+      post_controller = described_class.new(db_client)
       posts = post_controller.get_post_for_hashtag(tag)
 
       expect(posts[0]).to eq(200)
