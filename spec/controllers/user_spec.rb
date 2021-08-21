@@ -4,7 +4,7 @@ require_relative '../../controllers/userController'
 require_relative '../../db_connector'
 require 'mysql2'
 
-RSpec.describe 'user controller' do
+RSpec.describe UserController do
   db_client = create_db_client
 
   before do
@@ -22,7 +22,7 @@ RSpec.describe 'user controller' do
   describe '#create' do
     it 'creates account' do
       data = { 'username' => 'foo', 'email' => 'foo@mail.com' }
-      controller = UserController.new(db_client)
+      controller = described_class.new(db_client)
 
       controller.create(data)
       id = db_client.last_id
@@ -34,7 +34,7 @@ RSpec.describe 'user controller' do
 
     it 'cannots create acount with same email' do
       data = { 'username' => 'foo', 'email' => 'foo@mail.com' }
-      controller = UserController.new(db_client)
+      controller = described_class.new(db_client)
 
       controller.create(data)
       status = controller.create(data)
@@ -43,7 +43,7 @@ RSpec.describe 'user controller' do
     end
 
     it 'does not accept request withoud data' do
-      controller = UserController.new(db_client)
+      controller = described_class.new(db_client)
 
       status = controller.create(nil)
       expect(status).to eq([400, 'missing data. please sure you already give username and email'])
@@ -53,7 +53,7 @@ RSpec.describe 'user controller' do
   describe '#update' do
     it 'changes data account with specific id' do
       data = { 'username' => 'foo', 'email' => 'foo@mail.com' }
-      controller = UserController.new(db_client)
+      controller = described_class.new(db_client)
 
       controller.create(data)
 
@@ -76,7 +76,7 @@ RSpec.describe 'user controller' do
   describe '#create_post' do
     it 'creates post with specific user id' do
       content = { 'content' => 'my first post' }
-      controller = UserController.new(db_client)
+      controller = described_class.new(db_client)
 
       db_client.query("INSERT INTO users (username, email) VALUES ('fii', 'fii@mail.com')")
       user_id = db_client.last_id
@@ -99,7 +99,7 @@ RSpec.describe 'user controller' do
 
     it 'creates post with one hashtag' do
       content = { 'content' => 'my first post', 'hashtags' => ['ame'] }
-      controller = UserController.new(db_client)
+      controller = described_class.new(db_client)
 
       db_client.query("INSERT INTO users (username, email) VALUES ('fii', 'fii@mail.com')")
       user_id = db_client.last_id
@@ -124,7 +124,7 @@ RSpec.describe 'user controller' do
   describe '#create_comment' do
     it 'creates comment with specific id' do
       content = { 'content' => 'my first comment' }
-      controller = UserController.new(db_client)
+      controller = described_class.new(db_client)
 
       db_client.query("INSERT INTO users (username, email) VALUES ('fii', 'fii@mail.com')")
       user_id = db_client.last_id
@@ -149,7 +149,7 @@ RSpec.describe 'user controller' do
 
     it 'creates comment with one hashtag' do
       content = { 'content' => 'my first comment', 'hashtags' => ['ame'] }
-      controller = UserController.new(db_client)
+      controller = described_class.new(db_client)
 
       db_client.query("INSERT INTO users (username, email) VALUES ('fii', 'fii@mail.com')")
       user_id = db_client.last_id
