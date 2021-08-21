@@ -73,6 +73,10 @@ I write some notes for you easier to understand my erd and database schema.
 * field `attachment` stores the path where the attachment file is stored. For the name of the file, I use the name of tempfile. Just to make it easier for me, I don't create a function to generate a unique name for the attachment file. For now the extension that can be save for attachment file is `.jpg`, `.png`, `.gif`, `.mp4` and other extension outside picture and video format.
 * field `tag` contains the hashtag in lowercase.
 
+### Coverage
+
+![](https://github.com/nardiyansah/Generasi-GIGIH-Final-Project/blob/main/assets/coverage.png)
+
 ### strange thing I found when developing this app
 
 * when i want to send many hashtags and attachment, i got just one hashtag. After surfing the internet, i found the strange way. Add `[]` in the end of parameter name (it's so funny 😆). this the references https://dev.to/jesusislord3/getting-arrays-in-the-params-hash-for-sinatra-4agh
