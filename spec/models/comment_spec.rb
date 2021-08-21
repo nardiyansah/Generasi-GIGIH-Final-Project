@@ -3,7 +3,7 @@
 require_relative '../../models/comment'
 require_relative '../../db_connector'
 
-RSpec.describe 'comment model' do
+RSpec.describe Comment do
   db_client = create_db_client
 
   before do
@@ -22,7 +22,7 @@ RSpec.describe 'comment model' do
       post_id = db_client.last_id
 
       content_comment = 'this is comment'
-      comment = Comment.new(content_comment, nil, post_id, user_id, db_client)
+      comment = described_class.new(content_comment, nil, post_id, user_id, db_client)
 
       data = comment.save
 
