@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../controllers/postController'
+require_relative '../../controllers/post_controller'
 require_relative '../../db_connector'
 
 RSpec.describe PostController do

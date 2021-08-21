@@ -86,9 +86,9 @@ class UserController
     ]
   end
 
-  def create_comment(userId, postId, data)
-    user_id = userId.to_i
-    post_id = postId.to_i
+  def create_comment(user_id, post_id, data)
+    user_id = user_id.to_i
+    post_id = post_id.to_i
 
     content = data['content']
     attachment = data['attachment']

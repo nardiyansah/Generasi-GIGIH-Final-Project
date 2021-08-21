@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../controllers/hashtagController'
+require_relative '../../controllers/hashtag_controller'
 require_relative '../../db_connector'
 
 RSpec.describe HashtagController do
