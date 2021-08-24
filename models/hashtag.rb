@@ -37,6 +37,6 @@ class Hashtag
   end
 
   def self.get_trending(db_client)
-    db_client.query('select post_comment_hashtags.hashtag_id, hashtags.tag, count(hashtag_id) as amount from ( select hashtag_id, created_time from post_hashtags union all select hashtag_id, created_time from comment_hashtags where created_time > now() - interval 24 hour) as post_comment_hashtags join hashtags on post_comment_hashtags.hashtag_id = hashtags.id group by hashtag_id order by amount desc limit 5').each
+    db_client.query('select post_comment_hashtags.hashtag_id, hashtags.tag, count(hashtag_id) as amount from ( select hashtag_id, created_time from post_hashtags where created_time > now() - interval 24 hour union all select hashtag_id, created_time from comment_hashtags where created_time > now() - interval 24 hour) as post_comment_hashtags join hashtags on post_comment_hashtags.hashtag_id = hashtags.id group by hashtag_id order by amount desc limit 5').each
   end
 end
